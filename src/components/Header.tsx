@@ -13,9 +13,6 @@ export default function Header({ lang, setLang }: HeaderProps) {
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-slate-950 text-white shadow-xs">
-              <Shield className="h-4 sm:h-5 w-4 sm:w-5 stroke-[1.75]" />
-            </div>
             <div>
               <h1 className="text-base font-extrabold tracking-tight text-slate-950 sm:text-lg flex items-center gap-1.5">
                 <span>Thus</span>

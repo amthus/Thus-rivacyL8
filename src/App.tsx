@@ -28,17 +28,17 @@ import { generatePDF } from "./utils/pdfGenerator";
 const TRANSLATIONS = {
   fr: {
     title: "Comprenez chaque ligne avant de signer",
-    desc: "Téléversez vos contrats au format PDF ou collez le texte brut. Notre intelligence artificielle juridique extrait instantanément les clauses risquées, résume la portée, génère les obligations opérationnelles et vérifie la conformité globale.",
-    demoTitle: "Modèles de Contrats de Démonstration",
-    demoDesc: "Sélectionnez un modèle juridique complexe et structuré ci-dessous pour lancer l'analyseur automatique.",
+    desc: "Téléversez vos contrats ou documents professionnels au format PDF ou collez le texte brut. Notre intelligence artificielle extrait instantanément les clauses risquées, résume la portée, génère les obligations opérationnelles et vérifie la conformité globale.",
+    demoTitle: "Modèles de Documents & Contrats de Démonstration",
+    demoDesc: "Sélectionnez un modèle complexe et structuré ci-dessous pour lancer l'analyseur automatique.",
     loadModel: "Charger le modèle",
     selected: "Sélectionné ✓",
-    uploadTitle: "Téléversement ou Saisie du Contrat",
+    uploadTitle: "Téléversement ou Saisie du Document / Contrat",
     reset: "Réinitialiser",
-    dragDrop: "Glissez-déposez votre contrat ici, ou cliquez pour parcourir",
+    dragDrop: "Glissez-déposez votre document ici, ou cliquez pour parcourir",
     pdfTxtOnly: "Fichiers PDF ou Texte Brut (.txt) jusqu'à 20 Mo",
     fileUploaded: "Fichier prêt",
-    pastePlaceholder: "Collez ici le texte intégral de votre contrat...",
+    pastePlaceholder: "Collez ici le texte intégral de votre contrat ou document...",
     analyzeBtn: "Démarrer l'Analyse",
     analyzingBtn: "Analyse de précision en cours...",
     precisionEngine: "Moteur d'évaluation de précision L.8",
@@ -58,7 +58,7 @@ const TRANSLATIONS = {
     tabObligations: "Obligations",
     tabTermination: "Résiliation",
     tabCompliance: "Conformité",
-    backBtn: "Analyser un autre contrat",
+    backBtn: "Analyser un autre document",
     exportMd: "Exporter en Markdown",
     exportTxt: "Exporter en Texte",
     exportPdf: "Exporter le Rapport PDF",
@@ -99,10 +99,10 @@ const TRANSLATIONS = {
     clearDataBtn: "Effacer les données d'analyse",
     securityArchiving: "Sécurité et Archivage",
     securityArchivingDesc: "Vous pouvez détruire le cache de cette session à tout moment. Aucune donnée n'est conservée.",
-    footerText: "© 2026 ThusL8. Plateforme d'audit et de relecture juridique automatisée de haute précision.",
+    footerText: "© 2026 ThusL8. Plateforme d'audit et de relecture de documents et contrats automatisée de haute précision.",
     footerRgpd: "Respect du RGPD",
     footerAes: "Chiffrement AES-256",
-    analyzeOtherBtn: "Analyser un autre contrat",
+    analyzeOtherBtn: "Analyser un autre document",
     riskImpactLabel: "Analyse de l'impact :",
     riskRecLabel: "Recommandation :",
     transSummaryBtn: "Traduire le résumé",
@@ -115,17 +115,17 @@ const TRANSLATIONS = {
   },
   en: {
     title: "Understand every line before signing",
-    desc: "Upload your contracts in PDF format or paste raw text. Our legal artificial intelligence instantly extracts risky clauses, summarizes the scope, generates operational obligations, and checks overall compliance.",
-    demoTitle: "Demonstration Contract Templates",
+    desc: "Upload your contracts or professional documents in PDF format or paste raw text. Our artificial intelligence instantly extracts risky clauses, summarizes the scope, generates operational obligations, and checks overall compliance.",
+    demoTitle: "Demonstration Document & Contract Templates",
     demoDesc: "Select a complex and structured legal template below to launch the automatic analyzer.",
     loadModel: "Load template",
     selected: "Selected ✓",
-    uploadTitle: "Contract Upload or Input",
+    uploadTitle: "Document or Contract Upload / Input",
     reset: "Reset",
-    dragDrop: "Drag and drop your contract here, or click to browse",
+    dragDrop: "Drag and drop your document here, or click to browse",
     pdfTxtOnly: "PDF or Raw Text (.txt) files up to 20 MB",
     fileUploaded: "File ready",
-    pastePlaceholder: "Paste the full text of your contract here...",
+    pastePlaceholder: "Paste the full text of your contract or document here...",
     analyzeBtn: "Start Analysis",
     analyzingBtn: "Precision analysis in progress...",
     precisionEngine: "L.8 Precision Evaluation Engine",
@@ -145,7 +145,7 @@ const TRANSLATIONS = {
     tabObligations: "Obligations",
     tabTermination: "Termination",
     tabCompliance: "Compliance",
-    backBtn: "Analyze another contract",
+    backBtn: "Analyze another document",
     exportMd: "Export to Markdown",
     exportTxt: "Export to Text",
     exportPdf: "Export PDF Report",
@@ -164,7 +164,7 @@ const TRANSLATIONS = {
     obligationParty: "Responsible party",
     obligationDeadline: "Deadline",
     terminationTitle: "Termination Conditions",
-    terminationSubtitle: "Applicable rules in case of breach of contract",
+    terminationSubtitle: "Applicable rules in case of breach of contract or commitment",
     terminationMechanism: "Triggering Mechanisms",
     terminationNotice: "Notice Period",
     terminationPenalties: "Consequences & Penalties",
@@ -186,10 +186,10 @@ const TRANSLATIONS = {
     clearDataBtn: "Clear analysis data",
     securityArchiving: "Security & Archiving",
     securityArchivingDesc: "You can clear the cache of this analysis session at any time. No data is stored.",
-    footerText: "© 2026 ThusL8. High-precision automated legal audit and review platform.",
+    footerText: "© 2026 ThusL8. High-precision automated document and contract audit platform.",
     footerRgpd: "GDPR Compliant",
     footerAes: "AES-256 Encryption",
-    analyzeOtherBtn: "Analyze another contract",
+    analyzeOtherBtn: "Analyze another document",
     riskImpactLabel: "Impact analysis:",
     riskRecLabel: "Recommendation:",
     transSummaryBtn: "Translate summary",
@@ -401,11 +401,11 @@ export default function App() {
 
     let content = "";
     if (format === "md") {
-      content = `# Analyse du Contrat : ${analysisResult.title}
+      content = `# Analyse du Document / Contrat : ${analysisResult.title}
 
 ## Informations de Synthèse
 - **Parties contractantes :** ${analysisResult.parties.join(", ")}
-- **Durée du Contrat :** ${analysisResult.duration}
+- **Durée / Validité :** ${analysisResult.duration}
 - **Fichier Source :** ${analysisResult.fileName} (${analysisResult.fileSize})
 
 ## Résumé Général
@@ -441,13 +441,13 @@ ${analysisResult.compliance
   .join("\n\n")}
 `;
     } else {
-      content = `ANALYSE DU CONTRAT : ${analysisResult.title}
+      content = `ANALYSE DU DOCUMENT / CONTRAT : ${analysisResult.title}
 ============================================================
 
 INFORMATIONS DE SYNTHÈSE
 ------------------------
 - Parties : ${analysisResult.parties.join(", ")}
-- Durée : ${analysisResult.duration}
+- Durée / Validité : ${analysisResult.duration}
 - Fichier source : ${analysisResult.fileName}
 
 RÉSUMÉ GÉNÉRAL
