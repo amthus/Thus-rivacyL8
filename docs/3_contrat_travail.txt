@@ -1,0 +1,29 @@
+CONTRAT DE TRAVAIL À DURÉE INDÉTERMINÉE (CDI)
+
+ENTRE :
+
+La société DevStudio SARL, immatriculée au RCS de Marseille sous le numéro 456 789 012, représentée par Monsieur Laurent Gomez en sa qualité de Gérant (ci-après "l'Employeur").
+
+ET :
+
+Monsieur Thomas Dubois, demeurant au 25 rue Saint-Ferréol, 13001 Marseille (ci-après "le Salarié").
+
+Il a été convenu ce qui suit :
+
+Article 1 - Fonctions et Qualification
+Le Salarié est engagé en qualité d'Ingénieur Développement Logiciel Senior (statut Cadre). Ses fonctions comprendront la conception d'architectures applicatives, le développement de fonctionnalités critiques et l'encadrement technique d'une équipe de développeurs juniors.
+
+Article 2 - Période d'essai
+Le présent contrat est conclu sous réserve d'une période d'essai de 4 mois, renouvelable une fois d'un commun accord écrit pour une durée équivalente, conformément aux dispositions de la convention collective applicable (SYNTEC). Durant cette période d'essai, chacune des parties pourra rompre le contrat à tout moment moyennant le respect d'un délai de prévenance légal.
+
+Article 3 - Rémunération
+En contrepartie de ses fonctions, le Salarié percevra une rémunération mensuelle brute de 4 500 euros, versée sur 12 mois. Le Salarié pourra également bénéficier d'un bonus annuel variable sur objectifs d'un montant maximal de 5 000 euros bruts, conditionné aux résultats financiers de l'entreprise et à l'atteinte d'indicateurs de performance individuels.
+
+Article 4 - Clause d'exclusivité et de non-concurrence
+Le Salarié s'engage à consacrer l'intégralité de son activité professionnelle au service exclusif de l'Employeur. En cas de rupture du contrat de travail, pour quelque motif que ce soit, le Salarié s'interdit d'entrer au service d'une entreprise concurrente ou de créer une activité concurrente sur le territoire des départements 13, 83 et 06, pendant une durée de 12 mois. En contrepartie, l'Employeur lui versera chaque mois une indemnité compensatrice égale à 30% de sa moyenne de salaire brut des 3 derniers mois. L'Employeur se réserve le droit de libérer le Salarié de cette clause de non-concurrence sans indemnité en le notifiant par écrit dans les 15 jours suivant la rupture.
+
+Article 5 - Propriété Intellectuelle des créations
+Toutes les inventions, logiciels, codes sources, bases de données ou conceptions réalisés par le Salarié dans le cadre de l'exécution de ses fonctions professionnelles appartiennent de plein droit à l'Employeur au fur et à mesure de leur réalisation, conformément aux dispositions de l'article L. 113-9 du Code de la propriété intellectuelle.
+
+Article 6 - Rupture du contrat
+Après la période d'essai, le présent contrat pourra être rompu par démission ou licenciement dans les conditions fixées par la loi et la convention collective nationale applicable. La durée du préavis réciproque est de 3 mois.

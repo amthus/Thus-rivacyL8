@@ -1,0 +1,102 @@
+CONTRAT DE LICENCE ET DE PRESTATION DE SERVICES SAAS ENTREPRISE
+
+ENTRE LES SOUSSIGNÉS :
+La société CLOUDMAX SYSTEMS, SAS au capital de 250 000 €, immatriculée au RCS de Paris sous le numéro 111 222 333, dont le siège social est situé au 45 Avenue de la République, 75011 Paris, représentée par M. Alexandre Dumas, Président (ci-après le "Prestataire").
+
+ET :
+La société RETAILCORP EUROPE, SA au capital de 500 000 €, immatriculée au RCS de Lyon sous le numéro 444 555 666, dont le siège social est situé au 12 Rue de la Bourse, 69002 Lyon, représentée par Mme Valérie Pécresse, Directrice des Systèmes d'Information (ci-après le "Client").
+
+IL A ÉTÉ ARRÊTÉ ET CONVENU CE QUI SUIT :
+
+Article 1 - Objet du Contrat
+Le présent contrat a pour objet de définir les conditions juridiques, techniques et financières dans lesquelles le Prestataire concède au Client un droit d'accès et d'utilisation de sa solution logicielle en mode SaaS, et fournit les services d'accompagnement associés.
+
+Article 2 - Définitions
+- "SaaS" : Software as a Service, logiciel hébergé et accessible à distance.
+- "Données Client" : toutes les données, fichiers et contenus saisis par le Client sur la Plateforme.
+- "SLA" : Service Level Agreement, engagements de niveau de service.
+- "Anomalie" : tout dysfonctionnement reproductible empêchant l'utilisation normale de la Plateforme.
+
+Article 3 - Droits d'Accès et Licence
+Le Prestataire concède au Client une licence d'utilisation personnelle, non exclusive, non cessible et mondiale de la Plateforme pour ses seuls besoins internes, pour la durée du présent contrat.
+
+Article 4 - Niveau de Service (SLA)
+Le Prestataire garantit un taux de disponibilité mensuel de la Plateforme de 99,9%, calculé 24h/24 et 7j/7, hors fenêtres de maintenance planifiée d'un commun accord ou urgentes.
+
+Article 5 - Maintenance corrective
+Les anomalies signalées par le Client font l'objet d'une prise en charge prioritaire selon leur gravité : blocante (résolution sous 4h ouvrées), majeure (résolution sous 24h ouvrées), mineure (résolution sous 5 jours ouvrés).
+
+Article 6 - Maintenance évolutive
+Le Client bénéficie automatiquement de toutes les mises à jour mineures et correctives de la Plateforme sans surcoût. Les évolutions majeures ou modules optionnels feront l'objet de devis séparés.
+
+Article 7 - Propriété des Données
+Le Client reste l'unique propriétaire de l'ensemble des Données saisies ou importées sur la Plateforme. Le Prestataire s'interdit d'utiliser ces données pour son propre compte ou de les divulguer à des tiers.
+
+Article 8 - Sécurité et Chiffrement
+Le Prestataire s'engage à mettre en œuvre des mesures de sécurité physiques et logiques conformes à l'état de l'art, incluant le chiffrement des données au repos (AES-256) et en transit (TLS 1.3).
+
+Article 9 - Protection des Données Personnelles (RGPD)
+Les Parties s'engagent à respecter la réglementation sur la protection des données personnelles (RGPD). Le Prestataire agit en tant que sous-traitant et le Client en tant que responsable de traitement.
+
+Article 10 - Hébergement et Localisation
+L'ensemble des Données Client et de la Plateforme est hébergé sur le territoire de l'Union Européenne, spécifiquement dans des centres de données hautement sécurisés situés en France.
+
+Article 11 - Audit de Sécurité
+Le Client a le droit d'effectuer ou de faire effectuer par un tiers indépendant, une fois par an et à ses frais, un audit complet de la sécurité de l'infrastructure d'hébergement, sous réserve d'un préavis de 30 jours.
+
+Article 12 - Conditions Financières (Redevances)
+En contrepartie des services SaaS, le Client s'engage à payer une redevance mensuelle forfaitaire de 5 000 € HT. Les redevances d'intégration initiale sont fixées à un montant unique de 15 000 € HT.
+
+Article 13 - Indexation des Tarifs
+Les redevances d'abonnement SaaS seront révisées chaque année à la date anniversaire du contrat selon la formule d'indexation basée sur l'évolution de l'indice Syntec officiel.
+
+Article 14 - Modalités de Facturation
+La redevance SaaS est facturée trimestriellement à terme échoir. Les factures sont payables à 30 jours fin de mois à compter de leur date d'émission par virement bancaire uniquement.
+
+Article 15 - Pénalités de Retard
+Tout retard de paiement à l'échéance entraînera de plein droit des pénalités de retard d'un montant de trois fois le taux d'intérêt légal, plus l'indemnité forfaitaire de 40 € pour frais de recouvrement.
+
+Article 16 - Suspension des Services
+En cas de défaut de paiement persistant 15 jours après l'envoi d'une lettre de mise en demeure restée infructueuse, le Prestataire pourra suspendre immédiatement l'accès à la Plateforme.
+
+Article 17 - Propriété Intellectuelle du Prestataire
+La structure générale, les logiciels, codes, interfaces, marques et designs de la Plateforme sont la propriété exclusive du Prestataire. Aucune cession de droit de propriété intellectuelle n'est opérée par ce contrat.
+
+Article 18 - Garantie d'Éviction
+Le Prestataire garantit qu'il est titulaire des droits de propriété intellectuelle sur la Plateforme et qu'il garantira le Client contre toute action en contrefaçon intentée par un tiers.
+
+Article 19 - Collaboration des Parties
+Les Parties s'engagent à collaborer activement et de bonne foi à la réussite du déploiement de la solution, notamment en désignant un chef de projet dédié dans chaque entité.
+
+Article 20 - Obligation de Moyens et de Résultat
+Le Prestataire est tenu à une obligation de résultat concernant la disponibilité de la Plateforme (SLA) et à une obligation de moyens pour les prestations d'accompagnement et de conseil.
+
+Article 21 - Limitation Globale de Responsabilité
+Le montant total des indemnités cumulées dues par le Prestataire pour tous manquements contractuels est strictement limité au montant annuel des redevances SaaS effectivement payées par le Client.
+
+Article 22 - Assurance Responsabilité Civile
+Le Prestataire certifie avoir souscrit une assurance responsabilité civile professionnelle couvrant les risques technologiques majeurs auprès d'une compagnie notoirement solvable.
+
+Article 23 - Force Majeure
+Aucune des parties ne sera tenue pour responsable de l'inexécution de ses obligations en cas de survenance d'un cas de force majeure tel que défini par l'article 1218 du Code Civil.
+
+Article 24 - Confidentialité des Informations
+Les Parties s'engagent réciproquement à garder strictement confidentielles toutes les informations commerciales, financières ou techniques échangées durant l'exécution du contrat.
+
+Article 25 - Durée Initiale et Renouvellement
+Le présent contrat est conclu pour une durée ferme de 36 mois à compter de sa signature. Il se renouvelle tacitement par périodes de 12 mois, sauf résiliation notifiée avec un préavis de 6 mois.
+
+Article 26 - Résiliation pour Manquement
+En cas de manquement grave par l'une des parties à ses obligations fondamentales, l'autre partie pourra résilier le contrat 30 jours après mise en demeure par lettre recommandée restée infructueuse.
+
+Article 27 - Réversibilité et Restitution
+En cas de fin de contrat, le Prestataire assurera les opérations de réversibilité permettant au Client de récupérer l'ensemble de ses Données sous un format standard (JSON ou CSV) sous 30 jours.
+
+Article 28 - Non-Sollicitation de Personnel
+Chaque partie renonce à embaucher ou à faire travailler directement ou indirectement tout collaborateur de l'autre partie pendant toute la durée du contrat et les 12 mois suivant sa fin.
+
+Article 29 - Indépendance des Parties
+Chaque partie agit en son nom propre et pour son propre compte. Le présent contrat ne crée aucune relation d'exclusivité, de mandat, d'association ou de filiale commune entre le Prestataire et le Client.
+
+Article 30 - Droit Applicable et Attribution de Juridiction
+Le présent contrat est régi par la loi française. En cas de litige persistant après tentative de médiation, compétence exclusive est attribuée aux tribunaux compétents du ressort de la Cour d'Appel de Paris.

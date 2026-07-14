@@ -1,0 +1,8 @@
+{
+  "name": "AI Contract Explainer",
+  "description": "Analyse et explication de contrats juridiques avec détection de clauses risquées, obligations, conditions de résiliation, conformité, traduction et export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

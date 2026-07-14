@@ -1,0 +1,99 @@
+ACCORD-CADRE DE FOURNITURE DE SERVICES DE CONSEIL ET D'INTÉGRATION D'IA
+
+ENTRE LES SOUSSIGNÉS :
+La société NEURAL CONSULTING, SAS au capital de 100 000 €, immatriculée au RCS de Paris sous le numéro 333 444 555, dont le siège social est situé au 100 Rue des Algorithmes, 75008 Paris, représentée par M. Yann LeCun, Directeur Technique (ci-après le "Prestataire").
+
+ET :
+La société BANKING GLOBAL SERVICES, SA au capital de 10 000 000 €, immatriculée au RCS de Paris sous le numéro 666 777 888, dont le siège social est situé au 1 Place de la Défense, 92000 Nanterre, représentée par Mme Christine Lagarde, Présidente du Directoire (ci-après le "Client").
+
+IL A ÉTÉ ARRÊTÉ ET CONVENU CE QUI SUIT :
+
+Article 1 - Objet de l'Accord-Cadre
+Le présent accord-cadre définit les conditions contractuelles générales applicables à toutes les prestations de conseil, d'audit, de conception, d'intégration et de formation en intelligence artificielle fournies par le Prestataire au profit du Client.
+
+Article 2 - Commande de Prestations (Bons de Commande)
+Chaque prestation spécifique fera l'objet d'un Bon de Commande ou d'un Contrat d'Application signé par les deux Parties, détaillant le cahier des charges, le calendrier, le prix et les livrables requis.
+
+Article 3 - Devoir de Conseil du Prestataire
+Le Prestataire s'engage à assurer un devoir d'alerte, de conseil et d'information vis-à-vis du Client, notamment sur la faisabilité technique des modèles d'IA, les limites des données fournies et les risques de biais algorithmiques.
+
+Article 4 - Collaboration Obligatoire du Client
+Le Client s'engage à fournir de manière active, de bonne foi et en temps utile au Prestataire l'ensemble des données, accès système, documentations et ressources humaines qualifiées nécessaires à l'accomplissement des services.
+
+Article 5 - Délais et Calendrier
+Les délais de réalisation sont convenus d'un commun accord dans chaque Bon de Commande. En cas de retard du Prestataire non imputable au Client ou à un tiers, des pénalités de retard pourront être appliquées conformément aux termes spécifiques.
+
+Article 6 - Méthodologie Agile
+Sauf stipulation contraire dans le Bon de Commande, les projets seront menés selon la méthodologie Scrum, prévoyant des réunions de planification et de démonstration de fin de sprint toutes les deux semaines.
+
+Article 7 - Recette des Livrables
+À l'issue de chaque phase du projet, le Prestataire soumettra le livrable au Client pour validation. Le Client dispose de 10 jours ouvrés pour formuler des réserves écrites. À défaut de réserves dans ce délai, le livrable est réputé accepté.
+
+Article 8 - Garanties de Conformité Algorithmique
+Le Prestataire garantit que ses algorithmes et modèles d'IA sont conçus conformément aux normes éthiques généralement admises et respectent les règles de l'art relatives à la transparence, à l'explicabilité et à l'absence de discrimination.
+
+Article 9 - Sécurité des Systèmes d'Information (SSI)
+Le Prestataire s'engage à respecter scrupuleusement la Politique de Sécurité des Systèmes d'Information (PSSI) du Client, en particulier concernant les accès à distance aux bases de données et aux serveurs de production.
+
+Article 10 - Protection des Données Personnelles (RGPD)
+Dans le cadre de l'entraînement des modèles d'apprentissage automatique, le Prestataire s'engage à respecter les principes de minimisation des données et d'anonymisation des informations personnelles confidentielles.
+
+Article 11 - Propriété des Algorithmes Préexistants
+Le Prestataire reste le propriétaire exclusif de ses bibliothèques de codes, outils d'IA et modèles génériques développés indépendamment ou antérieurement à l'accord-cadre.
+
+Article 12 - Propriété des Développements Spécifiques
+Sauf clause contraire dans le Bon de Commande, la propriété intellectuelle des codes, modèles et documentations développés spécifiquement et sur mesure pour le compte du Client lui est transférée de plein droit après paiement intégral.
+
+Article 13 - Licence d'Exploitation Commerciale
+Pour les composants d'IA préexistants intégrés dans les livrables, le Prestataire concède au Client une licence perpétuelle, mondiale et non exclusive d'utilisation commerciale intégrée à l'application livrée.
+
+Article 14 - Conditions Financières Générales
+Les prestations d'IA sont facturées soit au forfait global défini au Bon de Commande, soit en régie au temps passé sur la base d'un taux journalier moyen (TJM) spécifié pour chaque profil d'ingénieur.
+
+Article 15 - Frais de Déplacement et d'Hébergement
+Les frais de transport, d'hébergement et de repas exposés par les collaborateurs du Prestataire pour l'exécution des missions au siège du Client seront remboursés sur présentation de justificatifs.
+
+Article 16 - Retards de Paiement
+Toute facture impayée à l'échéance porte intérêt au taux d'intérêt légal majoré de 10 points de pourcentage, ainsi qu'à l'indemnité légale de 40 € pour frais de recouvrement.
+
+Article 17 - Audit d'Activités
+Le Client pourra désigner un expert indépendant pour auditer périodiquement la conformité des processus de développement et de traitement des données mis en œuvre par le Prestataire au titre du présent contrat.
+
+Article 18 - Secret Professionnel et Confidentialité
+Les Parties s'engagent à respecter le secret professionnel le plus strict concernant l'ensemble des données bancaires, transactions, processus d'IA ou codes sources portés à leur connaissance.
+
+Article 19 - Garantie d'Éviction Intellectuelle
+Le Prestataire garantit qu'il dispose de tous les droits et autorisations requis pour utiliser et intégrer les technologies tierces ou open source dans le cadre des développements d'IA.
+
+Article 20 - Limitation Réciproque de Responsabilité
+Sauf faute lourde ou dolosive, la responsabilité totale cumulée du Prestataire est limitée à un montant maximum correspondant à 50% du montant HT total payé par le Client pour le Bon de Commande concerné.
+
+Article 21 - Exclusion de Responsabilité sur les Décisions d'IA
+Le Client reconnaît expressément que les résultats et prédictions générés par les modèles d'IA ne constituent que des aides à la décision. Le Prestataire exclut toute responsabilité quant aux conséquences financières des décisions prises par le Client sur la base de ces résultats.
+
+Article 22 - Assurances Professionnelles
+Le Prestataire s'engage à maintenir en vigueur une police d'assurance responsabilité civile professionnelle spécifiquement adaptée aux activités d'intégration d'intelligence artificielle et de traitement de données de masse.
+
+Article 23 - Force Majeure
+L'exécution des obligations des Parties sera suspendue de plein droit en cas d'événement de force majeure rendant impossible la fourniture normale des services d'IA ou l'accès aux serveurs.
+
+Article 24 - Non-Sollicitation Mutuelle
+Chaque Partie s'interdit d'embaucher, d'engager ou de faire travailler directement ou indirectement un collaborateur de l'autre Partie pendant la durée du contrat et l'année suivante, sous peine d'une indemnité forfaitaire de 100 000 €.
+
+Article 25 - Clause d'Indépendance
+Le Prestataire exécute les prestations de manière totalement autonome en fournissant ses propres outils et matériels de travail, de sorte qu'il n'existe aucun lien de subordination juridique entre ses collaborateurs et le Client.
+
+Article 26 - Durée de l'Accord-Cadre
+Le présent accord-cadre est conclu pour une durée initiale ferme de 24 mois à compter de sa signature. Il sera ensuite renouvelable d'année en année par avenant écrit d'un commun accord.
+
+Article 27 - Résiliation Partielle d'un Bon de Commande
+En cas d'annulation ou de résiliation d'un Bon de Commande spécifique du fait du Client sans manquement du Prestataire, le Client s'engage à payer l'intégralité des travaux déjà réalisés et des frais engagés.
+
+Article 28 - Résiliation Générale pour Manquement
+En cas de violation grave ou répétée des engagements de l'accord-cadre par l'une des Parties, l'autre Partie pourra mettre fin immédiatement à l'accord-cadre et à l'ensemble des Bons de Commande en cours après un préavis écrit de 30 jours.
+
+Article 29 - Réversibilité et Transition de Données
+À la fin de l'accord-cadre, le Prestataire assistera le Client dans les opérations de migration de ses données d'entraînement et de ses modèles de deep learning vers un autre prestataire ou en interne.
+
+Article 30 - Loi Applicable et Litiges
+Le présent accord-cadre est soumis à la loi française. En cas de contestation, et après échec d'une tentative de résolution amiable, compétence exclusive est attribuée aux tribunaux compétents de la ville de Paris.

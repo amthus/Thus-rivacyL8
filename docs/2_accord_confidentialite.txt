@@ -1,0 +1,29 @@
+ACCORD DE CONFIDENTIALITÉ ET DE NON-DIVULGATION (NDA)
+
+ENTRE :
+
+La société AlphaTech Solutions SAS, représentée par Monsieur Pierre Leroy en sa qualité de Président (ci-après "la Partie Divulgatrice").
+
+ET :
+
+La société Beta Consulting EURL, représentée par Madame Sophie Bernard en sa qualité de Gérante (ci-après "la Partie Récipiendaire").
+
+Il a été convenu ce qui suit :
+
+Article 1 - Définition des Informations Confidentielles
+Les "Informations Confidentielles" désignent toutes les informations de nature commerciale, financière, technique ou stratégique divulguées par la Partie Divulgatrice sous forme écrite, orale ou électronique, identifiées comme confidentielles ou devant raisonnablement être considérées comme telles.
+
+Article 2 - Obligations de non-divulgation
+La Partie Récipiendaire s'engage à maintenir la plus stricte confidentialité concernant les Informations Confidentielles reçues. Elle s'interdit de les divulguer à des tiers sans l'accord écrit préalable de la Partie Divulgatrice. Elle s'engage à n'utiliser ces informations que dans le but d'étudier l'opportunité d'un partenariat commercial technologique commun.
+
+Article 3 - Durée de la Confidentialité
+Le présent accord prend effet à la date de signature pour une durée de 2 ans. Toutefois, l'obligation de confidentialité et de non-divulgation survivra à l'expiration ou à la résiliation de l'accord pour une durée supplémentaire de 5 ans à compter de la date de divulgation de chaque information.
+
+Article 4 - Restitution des documents
+À la première demande de la Partie Divulgatrice, ou en cas d'abandon du projet de partenariat, la Partie Récipiendaire devra restituer ou détruire, dans un délai de 5 jours ouvrés, l'intégralité des documents, supports et copies contenant des Informations Confidentielles, et en certifier la destruction par écrit.
+
+Article 5 - Pénalités en cas de violation
+Toute violation des obligations du présent accord par la Partie Récipiendaire entraînera de plein droit le versement d'une indemnité forfaitaire compensatrice de 50 000 euros par infraction constatée, sans préjudice du droit pour la Partie Divulgatrice de réclamer des dommages-intérêts complémentaires devant les tribunaux pour le préjudice réellement subi.
+
+Article 6 - Juridiction compétente
+Le présent accord est régi par le droit français. Tout litige découlant de la validité, de l'interprétation ou de l'exécution du présent accord sera soumis au Tribunal de Grande Instance de Lyon.

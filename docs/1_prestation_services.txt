@@ -1,0 +1,32 @@
+CONTRAT DE PRESTATION DE SERVICES TECHNOLOGIQUES
+
+ENTRE LES SOUSSIGNÉS :
+
+La société Innovatech SAS, au capital de 100 000 euros, immatriculée au RCS de Paris sous le numéro 123 456 789, ayant son siège social au 10 rue de la Paix, 75002 Paris, représentée par Monsieur Jean Dupont en sa qualité de Directeur Général (ci-après désignée "le Prestataire").
+
+ET :
+
+La société Clientis SARL, au capital de 50 000 euros, immatriculée au RCS de Lyon sous le numéro 987 654 321, ayant son siège social au 50 avenue Victor Hugo, 69006 Lyon, représentée par Madame Marie Martin en sa qualité de Gérante (ci-après désignée "le Client").
+
+Il a été convenu ce qui suit :
+
+Article 1 - Objet des services
+Le Prestataire s'engage à fournir au Client un accès à sa plateforme logicielle de gestion de données en mode SaaS ainsi que des services d'intégration personnalisés.
+
+Article 2 - Durée
+Le présent contrat entre en vigueur le 1er septembre 2026 pour une durée initiale ferme de 36 mois. Il se renouvellera ensuite par tacite reconduction pour des périodes successives de 12 mois, sauf dénonciation par l'une des parties par lettre recommandée avec accusé de réception au moins 6 mois avant l'échéance de la période en cours.
+
+Article 3 - Responsabilité et limitations
+Le Prestataire s'engage à apporter tout le soin et la diligence nécessaires à la bonne exécution des prestations (obligation de moyens). En tout état de cause, la responsabilité totale cumulée du Prestataire pour tout dommage, perte ou réclamation au titre du contrat est expressément plafonnée à 20% du montant total HT payé par le Client au cours des 3 derniers mois précédant l'événement générateur. De plus, le Prestataire ne pourra être tenu responsable des pertes de données du Client ou des dommages indirects tels que pertes de profit, d'exploitation ou de clientèle.
+
+Article 4 - Propriété Intellectuelle et Données
+Tous les droits de propriété intellectuelle relatifs à la plateforme logicielle restent la propriété exclusive du Prestataire. Le Client est seul propriétaire de ses données, mais accorde au Prestataire une licence gratuite, perpétuelle et irrévocable d'utilisation de ces données sous forme anonymisée à des fins statistiques et d'amélioration des algorithmes d'intelligence artificielle du Prestataire. Le Client déclare avoir obtenu le consentement de toutes les personnes concernées par ses traitements de données personnelles conformément au RGPD.
+
+Article 5 - Facturation et Retards de paiement
+Les services SaaS sont facturés trimestriellement à terme échoir pour un montant de 3 000 euros HT. Les factures sont payables dans un délai de 15 jours à compter de leur émission. Tout retard de paiement entraînera de plein droit l'application de pénalités de retard calculées à un taux égal à 5 fois le taux d'intérêt légal, ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros. En outre, le Prestataire se réserve le droit de suspendre l'accès à la plateforme après un simple courriel de mise en demeure resté infructueux pendant 48 heures.
+
+Article 6 - Clause de Résiliation pour faute
+En cas de manquement grave par l'une des parties à l'une de ses obligations contractuelles (notamment le non-paiement des factures), l'autre partie pourra résilier le présent contrat de plein droit, 15 jours après l'envoi d'une mise en demeure par lettre recommandée restée sans effet. En cas de résiliation anticipée par le Client sans faute du Prestataire, la totalité des redevances restant à courir jusqu'à la fin de la période de 36 mois en cours deviendra immédiatement exigible à titre de pénalité.
+
+Article 7 - Loi applicable et Litiges
+Le présent contrat est soumis au droit français. Tout litige relatif à l'interprétation ou à l'exécution du contrat sera de la compétence exclusive du Tribunal de Commerce de Paris.

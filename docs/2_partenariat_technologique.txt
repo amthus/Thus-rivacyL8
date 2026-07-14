@@ -1,0 +1,102 @@
+CONTRAT DE PARTENARIAT ET DE CO-DÉVELOPPEMENT TECHNOLOGIQUE
+
+ENTRE LES SOUSSIGNÉS :
+La société MEGATECH LABS, SAS au capital de 150 000 €, immatriculée au RCS de Grenoble sous le numéro 222 333 444, dont le siège social est situé au 15 Avenue des Alpes, 38000 Grenoble, représentée par M. Pierre Dubois, Directeur de la Recherche (ci-après la "Partie A").
+
+ET :
+La société ROBOTIX SOLUTIONS, SAS au capital de 200 000 €, immatriculée au RCS de Toulouse sous le numéro 555 666 777, dont le siège social est situé au 88 Rue de l'Espace, 31000 Toulouse, représentée par Mme Amélie Nothomb, Présidente (ci-après la "Partie B").
+
+IL A ÉTÉ ARRÊTÉ ET CONVENU CE QUI SUIT :
+
+Article 1 - Objet du Partenariat
+Le présent contrat a pour objet d'établir un partenariat de recherche et de co-développement pour concevoir et tester un prototype de bras robotique intelligent guidé par vision artificielle.
+
+Article 2 - Définitions du Co-développement
+- "Projet" : l'ensemble des travaux de recherche, de conception, de développement et d'essais décrits aux spécifications.
+- "Livrables" : l'ensemble des codes sources, schémas mécaniques et documentations produits.
+- "Connaissances Antérieures" : technologies et brevets détenus par une Partie avant le Projet.
+- "Connaissances Nouvelles" : résultats issus des travaux communs du Projet.
+
+Article 3 - Gouvernance et Comité de Pilotage
+Un Comité de Pilotage composé de deux représentants de chaque Partie se réunira mensuellement pour valider l'avancement des tâches, arbitrer les choix techniques et décider des budgets.
+
+Article 4 - Spécifications Techniques Communes
+Les spécifications techniques détaillées du prototype sont annexées au présent contrat et ne peuvent être modifiées que par décision unanime du Comité de Pilotage consignée par écrit.
+
+Article 5 - Calendrier et Jalons de Livraison
+Le Projet est structuré en quatre jalons principaux : J1 (Étude d'architecture - Mois 3), J2 (Modélisation logicielle - Mois 6), J3 (Assemblage matériel - Mois 9) et J4 (Validation finale - Mois 12).
+
+Article 6 - Procédure de Recette Technique
+Chaque livrable intermédiaire ou final fera l'objet d'une recette technique contradictoire dans un délai de 15 jours ouvrés suivant sa livraison par la partie responsable du développement.
+
+Article 7 - Propriété Industrielle Antérieure
+Chaque Partie conserve la propriété exclusive de ses Connaissances Antérieures. Aucune cession de brevet ou de droit d'auteur n'est consentie au titre de l'accès à ces connaissances.
+
+Article 8 - Propriété Industrielle Commune
+Les Connaissances Nouvelles développées conjointement par les ingénieurs des deux Parties seront la propriété commune et indivise des deux Parties au prorata de leurs contributions intellectuelles.
+
+Article 9 - Dépôt de Brevets Communs
+Toute invention issue des travaux du Projet susceptible d'être brevetée fera l'objet d'un dépôt conjoint au nom des deux Parties, les frais de dépôt et d'entretien étant partagés à parts égales.
+
+Article 10 - Droits d'Exploitation Commerciale
+La Partie A dispose d'un droit exclusif d'exploitation commerciale de la technologie commune dans le secteur de l'automobile, tandis que la Partie B dispose d'un droit similaire dans le secteur aéronautique.
+
+Article 11 - Répartition des Revenus (Royalties)
+En cas d'exploitation directe ou de concession de licence des Connaissances Nouvelles à des tiers en dehors des secteurs réservés, les revenus seront répartis à hauteur de 50% pour chaque Partie.
+
+Article 12 - Financement et Budgétisation du Projet
+Chaque Partie financera ses propres équipes et ressources affectées au Projet. Le coût des matériels communs achetés pour le prototype sera pris en charge de moitié par chaque Partie.
+
+Article 13 - Ressources Humaines Dédiées
+Chaque Partie s'engage à déduire et affecter au Projet des ingénieurs qualifiés à temps plein (au moins 3 équivalents temps plein pour la Partie A et 3 pour la Partie B) pour toute la durée des travaux.
+
+Article 14 - Obligations d'Information Mutuelle
+Les Parties s'engagent à s'informer mutuellement et sans délai de toute découverte scientifique, difficulté technique, retard prévisible ou risque d'interférence avec les droits de tiers.
+
+Article 15 - Clause de Non-Concurrence Technologique
+Pendant toute la durée du Projet et pendant une période de 24 mois après sa fin, les Parties s'interdisent de collaborer avec des concurrents directs du partenaire sur des technologies similaires.
+
+Article 16 - Clause d'Exclusivité Sectorielle
+Les Parties s'interdisent d'utiliser les résultats du co-développement pour concurrencer le partenaire dans son secteur d'activité exclusif mentionné à l'Article 10.
+
+Article 17 - Confidentialité des Informations Partagées
+Toutes les informations techniques échangées pour les besoins du Projet sont considérées comme confidentielles. Cette obligation reste en vigueur pendant 5 ans après la fin du contrat.
+
+Article 18 - Gestion des Données de Test et RGPD
+Les données utilisées pour l'entraînement des algorithmes de vision artificielle ne contiendront aucune donnée personnelle identifiable, sauf accord écrit préalable conforme au RGPD.
+
+Article 19 - Responsabilité Mutuelle du Co-développement
+Chaque Partie est responsable de la qualité et de la conformité de ses propres livrables. Les Parties excluent mutuellement toute responsabilité pour les préjudices commerciaux indirects.
+
+Article 20 - Assurance des Risques Technologiques
+Chaque Partie s'engage à maintenir une police d'assurance couvrant les accidents corporels et les dommages matériels pouvant survenir lors des tests du prototype dans ses locaux.
+
+Article 21 - Force Majeure Majeure
+En cas d'événement de force majeure suspendant l'exécution du Projet pour une durée supérieure à 60 jours consécutifs, l'une ou l'autre Partie pourra mettre fin au contrat sans indemnité.
+
+Article 22 - Modification et Avenants au Contrat
+Toute modification des termes du présent contrat, de ses annexes techniques ou financiers, ne pourra être effectuée que par voie d'avenant signé par les représentants légaux des deux Parties.
+
+Article 23 - Durée Générale du Partenariat
+Le présent contrat est conclu pour une durée initiale de 18 mois à compter de sa signature. Il pourra être prolongé par accord écrit unanime des Parties pour achever les travaux.
+
+Article 24 - Retrait d'une Partie du Projet
+Une Partie peut demander son retrait du Projet avant le terme moyennant le respect d'un préavis de 3 mois et le transfert gratuit de ses droits d'usage sur ses travaux déjà réalisés.
+
+Article 25 - Résiliation Anticipée pour Faute
+En cas de violation caractérisée des obligations contractuelles ou d'abandon manifeste des travaux par l'une des Parties, le contrat pourra être résilié de plein droit après mise en demeure.
+
+Article 26 - Effets de la Résiliation sur la Co-propriété
+La résiliation du présent contrat pour quelque motif que ce soit n'affecte pas les droits de co-propriété acquis sur les Connaissances Nouvelles générées avant la date de résiliation.
+
+Article 27 - Non-Sollicitation Réciproque de Collaborateurs
+Les Parties s'interdisent réciproquement de débaucher ou d'employer les ingénieurs et chercheurs de l'autre Partie pendant la durée du partenariat et pendant 12 mois suivant son terme.
+
+Article 28 - Règlement Amiable des Différends
+En cas de différend majeur, les chefs de projet s'engagent à soumettre la difficulté au Comité de Pilotage. Si aucune solution n'est trouvée, une procédure de médiation sera engagée.
+
+Article 29 - Cession et Transmission du Contrat
+Aucune Partie ne peut céder ou transférer tout ou partie de ses droits et obligations au titre du présent contrat à un tiers sans l'accord écrit préalable et unanime de l'autre Partie.
+
+Article 30 - Droit Applicable et Arbitrage
+Le présent contrat est régi par la loi française. Tout différend persistant sera tranché par voie d'arbitrage sous l'égide de la Chambre de Commerce Internationale de Paris, statuant à trois arbitres.
