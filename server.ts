@@ -193,6 +193,10 @@ async function main() {
   });
 }
 
-main().catch((err) => {
-  console.error(err);
-});
+if (!process.env.VERCEL) {
+  main().catch((err) => {
+    console.error(err);
+  });
+}
+
+export default app;
