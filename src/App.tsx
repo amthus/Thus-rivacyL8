@@ -207,6 +207,72 @@ function sanitizeText(str: string | undefined | null): string {
   return str.replace(/\*\*/g, "").replace(/\*/g, "").trim();
 }
 
+function translateVercelError(rawText: string, lang: "fr" | "en"): string {
+  if (!rawText || typeof rawText !== "string") {
+    return lang === "fr" ? "Une erreur inconnue est survenue." : "An unknown error has occurred.";
+  }
+
+  let cleanText = rawText;
+  if (rawText.toLowerCase().includes("<html") || rawText.toLowerCase().includes("<body")) {
+    const bodyMatch = rawText.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    const contentToClean = bodyMatch && bodyMatch[1] ? bodyMatch[1] : rawText;
+    cleanText = contentToClean
+      .replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, "")
+      .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, "")
+      .replace(/<[^>]+>/g, "\n")
+      .trim();
+  }
+
+  const lines = cleanText
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  const translatedLines = lines.map((line) => {
+    const lower = line.toLowerCase();
+
+    if (lower.includes("a server error has occurred")) {
+      return lang === "fr"
+        ? "Une erreur de serveur est survenue (A server error has occurred)"
+        : "A server error has occurred";
+    }
+    if (lower.includes("function_invocation_failed")) {
+      return lang === "fr"
+        ? "ÉCHEC D'INVOCATION DE LA FONCTION (FUNCTION_INVOCATION_FAILED)"
+        : "FUNCTION INVOCATION FAILED";
+    }
+    if (lower.includes("function_invocation_timeout")) {
+      return lang === "fr"
+        ? "DÉPASSEMENT DE DÉLAI DE L'INVOCATION (FUNCTION_INVOCATION_TIMEOUT)"
+        : "FUNCTION INVOCATION TIMEOUT";
+    }
+    if (lower.includes("payload too large") || lower.includes("request entity too large") || lower.includes("413")) {
+      return lang === "fr"
+        ? "CONTENU ENVOYÉ TROP VOLUMINEUX (PAYLOAD TOO LARGE - Max 4.5 Mo)"
+        : "PAYLOAD TOO LARGE (Max 4.5 MB)";
+    }
+    if (lower.includes("gateway timeout") || lower.includes("504")) {
+      return lang === "fr"
+        ? "DÉPASSEMENT DE DÉLAI DE PASSERELLE (GATEWAY TIMEOUT 504)"
+        : "GATEWAY TIMEOUT (504)";
+    }
+    if (lower.includes("bad gateway") || lower.includes("502")) {
+      return lang === "fr"
+        ? "ERREUR DE PASSERELLE (BAD GATEWAY 502)"
+        : "BAD GATEWAY (502)";
+    }
+    if (lower.includes("not found") || lower.includes("404")) {
+      return lang === "fr"
+        ? "RESSOURCE NON TROUVÉE (NOT FOUND 404)"
+        : "NOT FOUND (404)";
+    }
+
+    return line;
+  });
+
+  return translatedLines.join("\n");
+}
+
 export default function App() {
   const [lang, setLang] = useState<"fr" | "en">("fr");
   const t = TRANSLATIONS[lang];
@@ -393,25 +459,9 @@ export default function App() {
       try {
         data = JSON.parse(responseText);
       } catch (jsonErr) {
-        let userFriendlyMsg = "";
-        const isFr = lang === "fr";
-
-        if (responseText.includes("FUNCTION_INVOCATION_FAILED") || response.status === 502 || response.status === 504) {
-          userFriendlyMsg = isFr 
-            ? "Erreur de dépassement de limite Vercel : L'analyse du document a dépassé la limite de temps de 10 secondes autorisée sur le plan gratuit de Vercel. Veuillez utiliser un contrat plus court ou copier-coller uniquement les sections importantes à analyser dans la zone de texte."
-            : "Vercel execution limit exceeded: The document analysis exceeded the 10-second limit allowed on Vercel's free plan. Please try a shorter contract or paste only the key sections to analyze.";
-        } else if (response.status === 413 || responseText.includes("Payload Too Large")) {
-          userFriendlyMsg = isFr
-            ? "Erreur : Le fichier ou le contenu envoyé est trop volumineux pour les serveurs de Vercel (limite de 4.5 Mo). Veuillez réduire la taille de votre document."
-            : "Error: The file or content sent is too large for Vercel's body size limit (4.5 MB). Please reduce the size of your document.";
-        } else {
-          userFriendlyMsg = isFr
-            ? `Erreur serveur (${response.status}) : Le serveur a renvoyé une réponse invalide. Veuillez vérifier que votre clé d'API GEMINI_API_KEY est correctement configurée ou essayer avec un document plus petit.`
-            : `Server Error (${response.status}): The server returned an invalid response. Please check that your GEMINI_API_KEY is correctly configured or try with a smaller document.`;
-        }
-        
+        const translatedErr = translateVercelError(responseText, lang);
         console.error("Non-JSON Server Error:", responseText);
-        throw new Error(userFriendlyMsg);
+        throw new Error(translatedErr);
       }
 
       if (!response.ok) {
@@ -471,21 +521,9 @@ export default function App() {
       try {
         data = JSON.parse(responseText);
       } catch (jsonErr) {
-        let userFriendlyMsg = "";
-        const isFr = lang === "fr";
-
-        if (responseText.includes("FUNCTION_INVOCATION_FAILED") || response.status === 502 || response.status === 504) {
-          userFriendlyMsg = isFr 
-            ? "Erreur de dépassement de limite Vercel : La traduction du paragraphe a dépassé la limite de temps de 10 secondes autorisée sur le plan gratuit de Vercel. Veuillez essayer de traduire une section plus courte."
-            : "Vercel execution limit exceeded: The translation request exceeded the 10-second limit allowed on Vercel's free plan. Please try translating a shorter segment.";
-        } else {
-          userFriendlyMsg = isFr
-            ? `Erreur serveur (${response.status}) lors de la traduction.`
-            : `Server Error (${response.status}) during translation.`;
-        }
-        
+        const translatedErr = translateVercelError(responseText, lang);
         console.error("Non-JSON Translation Error:", responseText);
-        throw new Error(userFriendlyMsg);
+        throw new Error(translatedErr);
       }
 
       if (!response.ok) {
@@ -897,9 +935,9 @@ ${analysisResult.compliance
                   {errorMsg && (
                     <div className="mt-4 rounded-xl bg-red-50 p-4 border border-red-100 flex items-start gap-3 text-red-800 text-sm">
                       <AlertCircle className="h-5 w-5 shrink-0 text-red-600 mt-0.5" />
-                      <div>
+                      <div className="w-full">
                         <p className="font-semibold">{t.errorTitle}</p>
-                        <p className="mt-1 text-xs text-red-700">{errorMsg}</p>
+                        <p className="mt-1.5 text-[11px] font-mono text-red-700 whitespace-pre-wrap leading-relaxed tracking-tight bg-white/50 p-2 rounded-md border border-red-100/50">{errorMsg}</p>
                       </div>
                     </div>
                   )}
