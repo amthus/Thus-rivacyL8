@@ -142,7 +142,7 @@ app.post("/api/analyze-contract", async (req, res) => {
       config: {
         responseMimeType: "application/json",
         responseSchema: responseSchema,
-        systemInstruction: "Tu es un expert juridique spécialisé dans l'analyse de contrats. Ton rôle est de disséquer le contrat fourni, d'extraire les éléments clés avec précision et rigueur, d'identifier tous les risques juridiques majeurs, de lister les obligations des parties, d'expliquer les conditions de résiliation et d'évaluer la conformité générale. Fournis toutes tes réponses en français technique, clair et précis. Formate abondamment tes réponses textuelles (synthèse, descriptions de risques, recommandations, remèdes de conformité) avec du Markdown riche : utilise des listes à puces, des paragraphes bien espacés, des termes en gras pour souligner les concepts clés, et des avertissements clairs pour attirer l'attention sur les points cruciaux. Pour les identifiants uniques (id) génère des identifiants courts uniques comme risk_1, risk_2, ob_1, ob_2, comp_1, comp_2.",
+        systemInstruction: "Tu es un expert juridique spécialisé dans l'analyse de contrats. Ton rôle est d'analyser le contrat fourni de manière extrêmement rapide, synthétique et concise pour respecter les contraintes strictes de temps d'exécution de Vercel. Limite-toi à un maximum de 3 risques majeurs, 3 obligations clés et 3 points de conformité les plus importants. Rédige des explications courtes, percutantes et précises en français, formatées avec du Markdown simple (listes à puces, gras). Évite absolument les longs paragraphes d'introduction ou de conclusion pour maximiser la vitesse. Pour les identifiants uniques (id), utilise des identifiants courts comme risk_1, ob_1, comp_1.",
       },
     });
 
@@ -176,7 +176,7 @@ app.post("/api/translate", async (req, res) => {
 
     const response = await ai.models.generateContent({
       model: "gemini-3.5-flash",
-      contents: `Traduis le texte juridique suivant en ${targetLanguage}. Conserve la structure et le ton professionnel juridique. Rends uniquement le texte traduit sans explications ni fioritures : \n\n${text}`,
+      contents: `Traduis de manière rapide et directe le texte juridique suivant en ${targetLanguage}. Conserve la structure et le ton professionnel juridique. Rends uniquement la traduction brute, sans commentaires, explications ou fioritures : \n\n${text}`,
     });
 
     const translatedText = response.text;
