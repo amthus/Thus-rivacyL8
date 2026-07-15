@@ -15,7 +15,7 @@ export default function Header({ lang, setLang }: HeaderProps) {
           <div className="flex items-center gap-2 sm:gap-3">
             <div>
               <h1 className="text-base font-extrabold tracking-tight text-slate-950 sm:text-lg flex items-center gap-1.5">
-                <span>Thus</span>
+                <span>Thus Privacy</span>
                 <span className="bg-slate-950 text-white px-1.5 py-0.5 rounded-md font-mono text-xs tracking-widest font-black shadow-xs">L8</span>
               </h1>
             </div>

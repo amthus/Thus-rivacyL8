@@ -11,15 +11,25 @@ const PORT = 3000;
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-const apiKey = process.env.GEMINI_API_KEY;
-const ai = new GoogleGenAI({
-  apiKey: apiKey,
-  httpOptions: {
-    headers: {
-      "User-Agent": "aistudio-build",
-    },
-  },
-});
+let aiInstance: GoogleGenAI | null = null;
+
+function getAI(): GoogleGenAI {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) {
+    throw new Error("GEMINI_API_KEY_MISSING");
+  }
+  if (!aiInstance) {
+    aiInstance = new GoogleGenAI({
+      apiKey: key,
+      httpOptions: {
+        headers: {
+          "User-Agent": "aistudio-build",
+        },
+      },
+    });
+  }
+  return aiInstance;
+}
 
 const responseSchema = {
   type: Type.OBJECT,
@@ -97,8 +107,13 @@ const responseSchema = {
 
 app.post("/api/analyze-contract", async (req, res) => {
   try {
-    if (!apiKey) {
-      return res.status(500).json({ error: "API key is missing" });
+    let ai;
+    try {
+      ai = getAI();
+    } catch (e: any) {
+      return res.status(500).json({ 
+        error: "La clé API GEMINI_API_KEY est manquante. Veuillez configurer la variable d'environnement GEMINI_API_KEY dans vos paramètres Vercel." 
+      });
     }
 
     const { fileBase64, fileType, rawText } = req.body;
@@ -147,8 +162,13 @@ app.post("/api/analyze-contract", async (req, res) => {
 
 app.post("/api/translate", async (req, res) => {
   try {
-    if (!apiKey) {
-      return res.status(500).json({ error: "API key is missing" });
+    let ai;
+    try {
+      ai = getAI();
+    } catch (e: any) {
+      return res.status(500).json({ 
+        error: "La clé API GEMINI_API_KEY est manquante. Veuillez configurer la variable d'environnement GEMINI_API_KEY dans vos paramètres Vercel." 
+      });
     }
 
     const { text, targetLanguage } = req.body;
