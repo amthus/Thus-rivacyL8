@@ -289,6 +289,23 @@ export default function App() {
     });
   };
 
+  const extractTextFromPdf = async (file: File): Promise<string> => {
+    const pdfjs = (window as any).pdfjsLib;
+    if (!pdfjs) {
+      throw new Error("PDF_JS_NOT_LOADED");
+    }
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjs.getDocument({ data: arrayBuffer }).promise;
+    let text = "";
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      const strings = content.items.map((item: any) => item.str || "");
+      text += strings.join(" ") + "\n";
+    }
+    return text;
+  };
+
   const handleAnalyze = async () => {
     setIsAnalyzing(true);
     setErrorMsg(null);
@@ -299,19 +316,67 @@ export default function App() {
       let payload: any = {};
 
       if (selectedFile) {
-        const base64Data = await convertToBase64(selectedFile);
-        payload = {
-          fileBase64: base64Data,
-          fileType: selectedFile.type,
-          fileName: selectedFile.name,
-        };
+        if (selectedFile.type === "application/pdf") {
+          let extractedText = "";
+          try {
+            extractedText = await extractTextFromPdf(selectedFile);
+          } catch (e) {
+            console.warn("Client-side PDF text extraction failed or not available:", e);
+          }
+
+          if (extractedText && extractedText.trim().length > 30) {
+            payload = {
+              rawText: extractedText,
+              fileName: selectedFile.name,
+            };
+          } else {
+            // PDF is empty / scanned. Check file size.
+            if (selectedFile.size > 3.2 * 1024 * 1024) {
+              throw new Error(
+                lang === "fr"
+                  ? `Ce fichier PDF fait ${(selectedFile.size / (1024 * 1024)).toFixed(1)} Mo et ne contient pas de texte sélectionnable (il s'agit probablement d'un document scanné ou d'images). Pour respecter les limites de taille de Vercel, veuillez utiliser un document PDF textuel de moins de 3 Mo.`
+                  : `This PDF file is ${(selectedFile.size / (1024 * 1024)).toFixed(1)} MB and does not contain selectable text (it seems to be scanned or image-based). To comply with Vercel body size limits, please use a text-based PDF file or a file smaller than 3 MB.`
+              );
+            }
+            const base64Data = await convertToBase64(selectedFile);
+            payload = {
+              fileBase64: base64Data,
+              fileType: selectedFile.type,
+              fileName: selectedFile.name,
+            };
+          }
+        } else if (selectedFile.type === "text/plain") {
+          const text = await selectedFile.text();
+          payload = {
+            rawText: text,
+            fileName: selectedFile.name,
+          };
+        } else {
+          if (selectedFile.size > 3.2 * 1024 * 1024) {
+            throw new Error(
+              lang === "fr"
+                ? `Ce fichier fait ${(selectedFile.size / (1024 * 1024)).toFixed(1)} Mo, ce qui dépasse la limite maximale autorisée sur Vercel (3 Mo).`
+                : `This file is ${(selectedFile.size / (1024 * 1024)).toFixed(1)} MB, which exceeds the maximum size allowed on Vercel (3 MB).`
+            );
+          }
+          const base64Data = await convertToBase64(selectedFile);
+          payload = {
+            fileBase64: base64Data,
+            fileType: selectedFile.type,
+            fileName: selectedFile.name,
+          };
+        }
       } else if (rawTextInput.trim()) {
         payload = {
           rawText: rawTextInput,
         };
       } else {
         setIsAnalyzing(false);
-        setErrorMsg("Veuillez téléverser un fichier ou saisir le texte d'un contrat.");
+        setErrorMsg(
+          lang === "fr"
+            ? "Veuillez téléverser un fichier ou saisir le texte d'un contrat."
+            : "Please upload a file or paste a contract text."
+        );
         return;
       }
 
