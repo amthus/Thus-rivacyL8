@@ -99,7 +99,7 @@ const TRANSLATIONS = {
     clearDataBtn: "Effacer les données d'analyse",
     securityArchiving: "Sécurité et Archivage",
     securityArchivingDesc: "Vous pouvez détruire le cache de cette session à tout moment. Aucune donnée n'est conservée.",
-    footerText: "© 2026 Thus Privacy L8. Plateforme d'audit et de relecture de documents et contrats automatisée de haute précision.",
+    footerText: "© 2026 Thus L8. Plateforme d'audit et de relecture de documents et contrats automatisée de haute précision.",
     footerRgpd: "Respect du RGPD",
     footerAes: "Chiffrement AES-256",
     analyzeOtherBtn: "Analyser un autre document",
@@ -186,7 +186,7 @@ const TRANSLATIONS = {
     clearDataBtn: "Clear analysis data",
     securityArchiving: "Security & Archiving",
     securityArchivingDesc: "You can clear the cache of this analysis session at any time. No data is stored.",
-    footerText: "© 2026 Thus Privacy L8. High-precision automated document and contract audit platform.",
+    footerText: "© 2026 Thus L8. High-precision automated document and contract audit platform.",
     footerRgpd: "GDPR Compliant",
     footerAes: "AES-256 Encryption",
     analyzeOtherBtn: "Analyze another document",
@@ -388,12 +388,36 @@ export default function App() {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error || "Erreur de communication avec le serveur.");
+      const responseText = await response.text();
+      let data: any = null;
+      try {
+        data = JSON.parse(responseText);
+      } catch (jsonErr) {
+        let userFriendlyMsg = "";
+        const isFr = lang === "fr";
+
+        if (responseText.includes("FUNCTION_INVOCATION_FAILED") || response.status === 502 || response.status === 504) {
+          userFriendlyMsg = isFr 
+            ? "Erreur de dépassement de limite Vercel : L'analyse du document a dépassé la limite de temps de 10 secondes autorisée sur le plan gratuit de Vercel. Veuillez utiliser un contrat plus court ou copier-coller uniquement les sections importantes à analyser dans la zone de texte."
+            : "Vercel execution limit exceeded: The document analysis exceeded the 10-second limit allowed on Vercel's free plan. Please try a shorter contract or paste only the key sections to analyze.";
+        } else if (response.status === 413 || responseText.includes("Payload Too Large")) {
+          userFriendlyMsg = isFr
+            ? "Erreur : Le fichier ou le contenu envoyé est trop volumineux pour les serveurs de Vercel (limite de 4.5 Mo). Veuillez réduire la taille de votre document."
+            : "Error: The file or content sent is too large for Vercel's body size limit (4.5 MB). Please reduce the size of your document.";
+        } else {
+          userFriendlyMsg = isFr
+            ? `Erreur serveur (${response.status}) : Le serveur a renvoyé une réponse invalide. Veuillez vérifier que votre clé d'API GEMINI_API_KEY est correctement configurée ou essayer avec un document plus petit.`
+            : `Server Error (${response.status}): The server returned an invalid response. Please check that your GEMINI_API_KEY is correctly configured or try with a smaller document.`;
+        }
+        
+        console.error("Non-JSON Server Error:", responseText);
+        throw new Error(userFriendlyMsg);
       }
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || (lang === "fr" ? "Erreur de communication avec le serveur." : "Server communication error."));
+      }
+
       const finalResult: ContractAnalysis = {
         ...data,
         fileName: selectedFile ? selectedFile.name : "Texte Saisi",
@@ -442,12 +466,32 @@ export default function App() {
         }),
       });
 
-      if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.error || "Erreur lors de la traduction.");
+      const responseText = await response.text();
+      let data: any = null;
+      try {
+        data = JSON.parse(responseText);
+      } catch (jsonErr) {
+        let userFriendlyMsg = "";
+        const isFr = lang === "fr";
+
+        if (responseText.includes("FUNCTION_INVOCATION_FAILED") || response.status === 502 || response.status === 504) {
+          userFriendlyMsg = isFr 
+            ? "Erreur de dépassement de limite Vercel : La traduction du paragraphe a dépassé la limite de temps de 10 secondes autorisée sur le plan gratuit de Vercel. Veuillez essayer de traduire une section plus courte."
+            : "Vercel execution limit exceeded: The translation request exceeded the 10-second limit allowed on Vercel's free plan. Please try translating a shorter segment.";
+        } else {
+          userFriendlyMsg = isFr
+            ? `Erreur serveur (${response.status}) lors de la traduction.`
+            : `Server Error (${response.status}) during translation.`;
+        }
+        
+        console.error("Non-JSON Translation Error:", responseText);
+        throw new Error(userFriendlyMsg);
       }
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || (lang === "fr" ? "Erreur lors de la traduction." : "Translation error."));
+      }
+
       setTranslatedContent(data.translatedText);
     } catch (err: any) {
       setTranslatedContent(`Erreur : ${err.message || "Échec de la traduction."}`);

@@ -496,8 +496,8 @@ export function generatePDF(analysis: ContractAnalysis, lang: "fr" | "en") {
     doc.setTextColor(148, 163, 184); // slate-400
     
     const footerText = lang === "fr" 
-      ? `Thus Privacy L8 • Audit de haute précision • Généré le ${new Date().toLocaleDateString("fr-FR")}`
-      : `Thus Privacy L8 • High-precision Audit Engine • Generated on ${new Date().toLocaleDateString()}`;
+      ? `Thus L8 • Audit de haute précision • Généré le ${new Date().toLocaleDateString("fr-FR")}`
+      : `Thus L8 • High-precision Audit Engine • Generated on ${new Date().toLocaleDateString()}`;
     doc.text(footerText, margin, 287);
     
     const pageNumText = lang === "fr" 
