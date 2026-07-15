@@ -1,3 +1,3 @@
-import app from "../server.ts";
+import app from "../src/apiApp";
 
 export default app;
