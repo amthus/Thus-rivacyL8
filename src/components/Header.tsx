@@ -1,5 +1,5 @@
 import React from "react";
-import { Shield, Cpu, Info, Share2, ArrowLeft } from "lucide-react";
+import { Shield, Cpu, Info, Share2, ArrowLeft, Mail } from "lucide-react";
 import { motion } from "motion/react";
 
 interface HeaderProps {
@@ -7,17 +7,42 @@ interface HeaderProps {
   setLang: (lang: "fr" | "en") => void;
   showAbout: boolean;
   setShowAbout: (show: boolean) => void;
+  showContact: boolean;
+  setShowContact: (show: boolean) => void;
   onShare: () => void;
 }
 
-export default function Header({ lang, setLang, showAbout, setShowAbout, onShare }: HeaderProps) {
+export default function Header({ 
+  lang, 
+  setLang, 
+  showAbout, 
+  setShowAbout, 
+  showContact, 
+  setShowContact, 
+  onShare 
+}: HeaderProps) {
+  const handleLogoClick = () => {
+    setShowAbout(false);
+    setShowContact(false);
+  };
+
+  const handleAboutClick = () => {
+    setShowContact(false);
+    setShowAbout(!showAbout);
+  };
+
+  const handleContactClick = () => {
+    setShowAbout(false);
+    setShowContact(!showContact);
+  };
+
   return (
     <header className="border-b border-slate-200 bg-white/85 backdrop-blur-md sticky top-0 z-50">
       <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center justify-center w-full sm:w-auto">
             <button 
-              onClick={() => setShowAbout(false)}
+              onClick={handleLogoClick}
               className="flex items-center gap-1.5 cursor-pointer text-left focus:outline-none hover:opacity-95 active:scale-98 transition-all"
             >
               <h1 className="text-lg font-black tracking-tight text-slate-950 flex items-center gap-1.5">
@@ -28,9 +53,9 @@ export default function Header({ lang, setLang, showAbout, setShowAbout, onShare
           </div>
           
           <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto">
-            {/* Bouton À propos (About) qui remplace le Moteur de Précision L.8 */}
+            {/* Bouton À propos (About) */}
             <button
-              onClick={() => setShowAbout(!showAbout)}
+              onClick={handleAboutClick}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-bold transition-all cursor-pointer shadow-3xs ${
                 showAbout
                   ? "bg-slate-950 text-white border-slate-950"
@@ -38,17 +63,22 @@ export default function Header({ lang, setLang, showAbout, setShowAbout, onShare
               }`}
               title={lang === "fr" ? "En savoir plus sur Thus L8" : "Learn more about Thus L8"}
             >
-              {showAbout ? (
-                <>
-                  <ArrowLeft className="h-3.5 w-3.5" />
-                  <span>{lang === "fr" ? "Retour" : "Back"}</span>
-                </>
-              ) : (
-                <>
-                  <Info className="h-3.5 w-3.5" />
-                  <span>{lang === "fr" ? "À propos" : "About"}</span>
-                </>
-              )}
+              <Info className="h-3.5 w-3.5" />
+              <span>{lang === "fr" ? "À propos" : "About"}</span>
+            </button>
+
+            {/* Bouton Contact placé après À propos */}
+            <button
+              onClick={handleContactClick}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-bold transition-all cursor-pointer shadow-3xs ${
+                showContact
+                  ? "bg-slate-950 text-white border-slate-950"
+                  : "bg-white text-slate-700 border-slate-200 hover:text-slate-950 hover:bg-slate-50"
+              }`}
+              title={lang === "fr" ? "Nous contacter" : "Contact us"}
+            >
+              <Mail className="h-3.5 w-3.5" />
+              <span>{lang === "fr" ? "Contact" : "Contact"}</span>
             </button>
 
             {/* Bouton de Partage */}

@@ -23,6 +23,7 @@ import {
 import { ContractAnalysis } from "./types";
 import Header from "./components/Header";
 import AboutView from "./components/AboutView";
+import ContactView from "./components/ContactView";
 import ShareModal from "./components/ShareModal";
 import SecurityCertificates from "./components/SecurityCertificates";
 import { DEMO_CONTRACTS } from "./data/demoContracts";
@@ -326,6 +327,7 @@ export default function App() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const [showAbout, setShowAbout] = useState(false);
+  const [showContact, setShowContact] = useState(false);
   const [shareFeedback, setShareFeedback] = useState<string | null>(null);
   const [isShareOpen, setIsShareOpen] = useState(false);
 
@@ -426,6 +428,8 @@ export default function App() {
     setErrorMsg(null);
     setAnalysisResult(null);
     setTranslatedContent(null);
+    setShowAbout(false);
+    setShowContact(false);
 
     try {
       let payload: any = {};
@@ -719,6 +723,8 @@ ${analysisResult.compliance
         setLang={setLang} 
         showAbout={showAbout} 
         setShowAbout={setShowAbout} 
+        showContact={showContact}
+        setShowContact={setShowContact}
         onShare={handleShare} 
       />
 
@@ -739,13 +745,15 @@ ${analysisResult.compliance
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <motion.div
-          key={showAbout ? "about" : lang}
+          key={showAbout ? "about" : showContact ? "contact" : lang}
           initial={{ opacity: 0.35, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.28, ease: "easeInOut" }}
         >
           {showAbout ? (
             <AboutView lang={lang} onClose={() => setShowAbout(false)} />
+          ) : showContact ? (
+            <ContactView lang={lang} onClose={() => setShowContact(false)} />
           ) : !analysisResult ? (
           <div className="space-y-8">
             <div className="max-w-3xl">

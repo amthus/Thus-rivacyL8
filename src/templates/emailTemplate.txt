@@ -1,0 +1,12 @@
+Bonjour Malthus,
+
+Nouveau message depuis l'application Thus L8 :
+
+Nom complet : {fullName}
+Source : {source}
+Type de message : {msgType}
+
+Message :
+{message}
+
+Adresse e-mail : {emailAddr}
