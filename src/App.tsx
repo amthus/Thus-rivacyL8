@@ -24,183 +24,8 @@ import { ContractAnalysis } from "./types";
 import Header from "./components/Header";
 import { DEMO_CONTRACTS } from "./data/demoContracts";
 import { generatePDF } from "./utils/pdfGenerator";
-
-const TRANSLATIONS = {
-  fr: {
-    title: "Comprenez chaque ligne avant de signer",
-    desc: "Téléversez vos contrats ou documents professionnels au format PDF ou collez le texte brut. Notre intelligence artificielle extrait instantanément les clauses risquées, résume la portée, génère les obligations opérationnelles et vérifie la conformité globale.",
-    demoTitle: "Modèles de Documents & Contrats de Démonstration",
-    demoDesc: "Sélectionnez un modèle complexe et structuré ci-dessous pour lancer l'analyseur automatique.",
-    loadModel: "Charger le modèle",
-    selected: "Sélectionné ✓",
-    uploadTitle: "Téléversement ou Saisie du Document / Contrat",
-    reset: "Réinitialiser",
-    dragDrop: "Glissez-déposez votre document ici, ou cliquez pour parcourir",
-    pdfTxtOnly: "Fichiers PDF ou Texte Brut (.txt) jusqu'à 20 Mo",
-    fileUploaded: "Fichier prêt",
-    pastePlaceholder: "Collez ici le texte intégral de votre contrat ou document...",
-    analyzeBtn: "Démarrer l'Analyse",
-    analyzingBtn: "Analyse de précision en cours...",
-    precisionEngine: "Moteur d'évaluation de précision L.8",
-    precisionGuarantees: "Garanties de Précision",
-    reasoningTitle: "Raisonnement Juridique Avancé",
-    reasoningDesc: "La technologie sous-jacente s'appuie sur des modèles d'évaluation entraînés à déceler les omissions ou clauses inhabituelles.",
-    confidentialityTitle: "Confidentialité Maximale",
-    confidentialityDesc: "Vos documents sont traités en mémoire de manière isolée sans persistance externe sur des serveurs tiers.",
-    securityTitle: "Vérification des Risques Cruciaux",
-    securityDesc: "Analyse automatique des limites de responsabilité, clauses d'exclusion, indemnités et préavis abusifs.",
-    errorTitle: "Erreur d'analyse",
-    docReady: "Document Prêt",
-    partiesConcerned: "Parties Concernées",
-    articles: "Articles",
-    tabSummary: "Synthèse",
-    tabRisks: "Risques",
-    tabObligations: "Obligations",
-    tabTermination: "Résiliation",
-    tabCompliance: "Conformité",
-    backBtn: "Analyser un autre document",
-    exportMd: "Exporter en Markdown",
-    exportTxt: "Exporter en Texte",
-    exportPdf: "Exporter le Rapport PDF",
-    summaryCardTitle: "Résumé Synthétique",
-    partiesTitle: "Parties Contractantes",
-    durationTitle: "Durée & Validité",
-    fileNameTitle: "Source du Document",
-    risksFilterAll: "Tous",
-    risksFilterHigh: "Élevé",
-    risksFilterMedium: "Moyen",
-    risksFilterLow: "Faible",
-    noRisksFound: "Aucun risque identifié pour cette catégorie.",
-    obligationsTitle: "Suivi des Obligations",
-    obligationsSubtitle: "Liste des engagements identifiés pour chaque partie",
-    obligationsCompleted: "obligations complétées",
-    obligationParty: "Partie responsable",
-    obligationDeadline: "Échéance",
-    terminationTitle: "Conditions de Résiliation",
-    terminationSubtitle: "Règles applicables en cas de rupture de la relation contractuelle",
-    terminationMechanism: "Mécanismes de Déclenchement",
-    terminationNotice: "Délai de Préavis",
-    terminationPenalties: "Conséquences et Pénalités",
-    terminationDetails: "Spécifications Additionnelles",
-    complianceTitle: "Analyse de Conformité",
-    complianceSubtitle: "Contrôle de conformité par rapport au droit positif (ex: RGPD)",
-    complianceStatus: "Statut de conformité",
-    complianceDetails: "Évaluation",
-    complianceRemedy: "Action corrective requise",
-    translationWidgetTitle: "Traduction Instantanée",
-    translationWidgetDesc: "Sélectionnez l'icône de traduction à côté d'une clause ou d'un résumé pour la charger ici.",
-    translateBtn: "Traduire",
-    translatingBtn: "Traduction...",
-    translateTo: "Langue Cible",
-    translatedTextLabel: "Traduction",
-    complianceStatusOk: "Conforme",
-    complianceStatusWarning: "Vigilance",
-    complianceStatusDanger: "Non Conforme",
-    clearDataBtn: "Effacer les données d'analyse",
-    securityArchiving: "Sécurité et Archivage",
-    securityArchivingDesc: "Vous pouvez détruire le cache de cette session à tout moment. Aucune donnée n'est conservée.",
-    footerText: "© 2026 Thus L8. Plateforme d'audit et de relecture de documents et contrats automatisée de haute précision.",
-    footerRgpd: "Respect du RGPD",
-    footerAes: "Chiffrement AES-256",
-    analyzeOtherBtn: "Analyser un autre document",
-    riskImpactLabel: "Analyse de l'impact :",
-    riskRecLabel: "Recommandation :",
-    transSummaryBtn: "Traduire le résumé",
-    transClauseBtn: "Traduire la clause",
-    transTerminationBtn: "Traduire la résiliation",
-    obligationProgression: "Progression :",
-    noObligationFound: "Aucune obligation formelle identifiée.",
-    noComplianceFound: "Aucune problématique d'incompatibilité identifiée.",
-    sourceLanguageLabel: "Source (Français)"
-  },
-  en: {
-    title: "Understand every line before signing",
-    desc: "Upload your contracts or professional documents in PDF format or paste raw text. Our artificial intelligence instantly extracts risky clauses, summarizes the scope, generates operational obligations, and checks overall compliance.",
-    demoTitle: "Demonstration Document & Contract Templates",
-    demoDesc: "Select a complex and structured legal template below to launch the automatic analyzer.",
-    loadModel: "Load template",
-    selected: "Selected ✓",
-    uploadTitle: "Document or Contract Upload / Input",
-    reset: "Reset",
-    dragDrop: "Drag and drop your document here, or click to browse",
-    pdfTxtOnly: "PDF or Raw Text (.txt) files up to 20 MB",
-    fileUploaded: "File ready",
-    pastePlaceholder: "Paste the full text of your contract or document here...",
-    analyzeBtn: "Start Analysis",
-    analyzingBtn: "Precision analysis in progress...",
-    precisionEngine: "L.8 Precision Evaluation Engine",
-    precisionGuarantees: "Precision Guarantees",
-    reasoningTitle: "Advanced Legal Reasoning",
-    reasoningDesc: "The underlying technology relies on evaluation models trained to detect omissions or unusual clauses.",
-    confidentialityTitle: "Maximum Confidentiality",
-    confidentialityDesc: "Your documents are processed in memory in an isolated manner without external persistence on third-party servers.",
-    securityTitle: "Crucial Risks Verification",
-    securityDesc: "Automatic analysis of liability limits, exclusion clauses, indemnities, and unfair notice periods.",
-    errorTitle: "Analysis error",
-    docReady: "Document Ready",
-    partiesConcerned: "Parties Concerned",
-    articles: "Articles",
-    tabSummary: "Summary",
-    tabRisks: "Risks",
-    tabObligations: "Obligations",
-    tabTermination: "Termination",
-    tabCompliance: "Compliance",
-    backBtn: "Analyze another document",
-    exportMd: "Export to Markdown",
-    exportTxt: "Export to Text",
-    exportPdf: "Export PDF Report",
-    summaryCardTitle: "Structured Summary",
-    partiesTitle: "Contracting Parties",
-    durationTitle: "Duration & Validity",
-    fileNameTitle: "Source Document",
-    risksFilterAll: "All",
-    risksFilterHigh: "High",
-    risksFilterMedium: "Medium",
-    risksFilterLow: "Low",
-    noRisksFound: "No risks identified for this category.",
-    obligationsTitle: "Obligations Tracker",
-    obligationsSubtitle: "List of commitments identified for each party",
-    obligationsCompleted: "obligations completed",
-    obligationParty: "Responsible party",
-    obligationDeadline: "Deadline",
-    terminationTitle: "Termination Conditions",
-    terminationSubtitle: "Applicable rules in case of breach of contract or commitment",
-    terminationMechanism: "Triggering Mechanisms",
-    terminationNotice: "Notice Period",
-    terminationPenalties: "Consequences & Penalties",
-    terminationDetails: "Additional Specifications",
-    complianceTitle: "Compliance Analysis",
-    complianceSubtitle: "Compliance check against applicable laws (e.g. GDPR)",
-    complianceStatus: "Compliance status",
-    complianceDetails: "Evaluation",
-    complianceRemedy: "Required corrective action",
-    translationWidgetTitle: "Instant Translation",
-    translationWidgetDesc: "Select the translation icon next to a clause or summary to load its content here.",
-    translateBtn: "Translate",
-    translatingBtn: "Translating...",
-    translateTo: "Target Language",
-    translatedTextLabel: "Translation",
-    complianceStatusOk: "Compliant",
-    complianceStatusWarning: "Watchlist",
-    complianceStatusDanger: "Non-Compliant",
-    clearDataBtn: "Clear analysis data",
-    securityArchiving: "Security & Archiving",
-    securityArchivingDesc: "You can clear the cache of this analysis session at any time. No data is stored.",
-    footerText: "© 2026 Thus L8. High-precision automated document and contract audit platform.",
-    footerRgpd: "GDPR Compliant",
-    footerAes: "AES-256 Encryption",
-    analyzeOtherBtn: "Analyze another document",
-    riskImpactLabel: "Impact analysis:",
-    riskRecLabel: "Recommendation:",
-    transSummaryBtn: "Translate summary",
-    transClauseBtn: "Translate clause",
-    transTerminationBtn: "Translate termination",
-    obligationProgression: "Progress:",
-    noObligationFound: "No formal obligations identified.",
-    noComplianceFound: "No incompatibility issues identified.",
-    sourceLanguageLabel: "Source (French)"
-  }
-};
+import { LEGAL_TERMS } from "./data/legalTerms";
+import { TRANSLATIONS } from "./lang/translations";
 
 function sanitizeText(str: string | undefined | null): string {
   if (!str) return "";
@@ -271,6 +96,113 @@ function translateVercelError(rawText: string, lang: "fr" | "en"): string {
   });
 
   return translatedLines.join("\n");
+}
+
+interface TooltipProps {
+  term: string;
+  definition: string;
+  children: React.ReactNode;
+}
+
+function Tooltip({ term, definition, children }: TooltipProps) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  return (
+    <span
+      className="relative inline-block whitespace-nowrap"
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      <span className="underline decoration-dotted decoration-indigo-500 hover:decoration-solid cursor-help text-indigo-700 hover:text-indigo-900 font-semibold transition-all bg-indigo-50/40 hover:bg-indigo-50/80 px-1 rounded-sm">
+        {children}
+      </span>
+      <AnimatePresence>
+        {isVisible && (
+          <motion.span
+            initial={{ opacity: 0, y: 4, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.95 }}
+            transition={{ duration: 0.12, ease: "easeOut" }}
+            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-slate-900 text-white text-[11px] rounded-lg p-3 shadow-xl z-50 pointer-events-none text-left font-sans whitespace-normal"
+          >
+            <span className="font-bold block border-b border-slate-700 pb-1 mb-1 text-indigo-300">
+              {term}
+            </span>
+            <span className="block leading-relaxed text-slate-200 font-medium">
+              {definition}
+            </span>
+            <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900" />
+          </motion.span>
+        )}
+      </AnimatePresence>
+    </span>
+  );
+}
+
+interface LegalTermHighlighterProps {
+  text: string;
+  lang: "fr" | "en";
+}
+
+function LegalTermHighlighter({ text, lang }: LegalTermHighlighterProps) {
+  if (!text) return null;
+
+  const termsMap = LEGAL_TERMS[lang] || LEGAL_TERMS["fr"];
+  const sortedTerms = Object.keys(termsMap).sort((a, b) => b.length - a.length);
+
+  if (sortedTerms.length === 0) return <>{text}</>;
+
+  const escapedTerms = sortedTerms.map(term =>
+    term.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+  );
+
+  const regexStr = `(?<=[\\s,.;:!?\\"'()\\-\\[\\]]|^)(${escapedTerms.join("|")})(?=[\\s,.;:!?\\"'()\\-\\[\\]]|$)`;
+  const regex = new RegExp(regexStr, "gi");
+
+  const parts = text.split(regex);
+  if (parts.length <= 1) {
+    return <>{text}</>;
+  }
+
+  return (
+    <>
+      {parts.map((part, index) => {
+        const lowerPart = part.toLowerCase();
+        const definition = termsMap[lowerPart];
+        if (definition) {
+          return (
+            <Tooltip key={index} term={part} definition={definition}>
+              {part}
+            </Tooltip>
+          );
+        }
+        return part;
+      })}
+    </>
+  );
+}
+
+function highlightLegalTermsInNode(node: React.ReactNode, lang: "fr" | "en"): React.ReactNode {
+  if (typeof node === "string") {
+    return <LegalTermHighlighter text={node} lang={lang} />;
+  }
+  if (Array.isArray(node)) {
+    return node.map((child, idx) => (
+      <React.Fragment key={idx}>
+        {highlightLegalTermsInNode(child, lang)}
+      </React.Fragment>
+    ));
+  }
+  if (React.isValidElement(node)) {
+    const element = node as React.ReactElement<any>;
+    const children = element.props?.children;
+    if (children) {
+      return React.cloneElement(element, {
+        children: highlightLegalTermsInNode(children, lang)
+      });
+    }
+  }
+  return node;
 }
 
 export default function App() {
@@ -1137,11 +1069,11 @@ ${analysisResult.compliance
                         <div className="text-sm text-slate-600 leading-relaxed space-y-2">
                           <Markdown
                             components={{
-                              p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                              p: ({ children }) => <p className="mb-2 last:mb-0">{highlightLegalTermsInNode(children, lang)}</p>,
                               ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
                               ol: ({ children }) => <ol className="list-decimal pl-4 mb-2 space-y-1">{children}</ol>,
-                              li: ({ children }) => <li className="text-slate-600">{children}</li>,
-                              strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{children}</strong>,
+                              li: ({ children }) => <li className="text-slate-600">{highlightLegalTermsInNode(children, lang)}</li>,
+                              strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{highlightLegalTermsInNode(children, lang)}</strong>,
                             }}
                           >
                             {analysisResult.summary}
@@ -1269,10 +1201,10 @@ ${analysisResult.compliance
                                   <strong className="text-slate-800 block mb-1">{t.riskImpactLabel}</strong>
                                   <Markdown
                                     components={{
-                                      p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+                                      p: ({ children }) => <p className="mb-1 last:mb-0">{highlightLegalTermsInNode(children, lang)}</p>,
                                       ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                                      li: ({ children }) => <li className="text-slate-600">{children}</li>,
-                                      strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{children}</strong>,
+                                      li: ({ children }) => <li className="text-slate-600">{highlightLegalTermsInNode(children, lang)}</li>,
+                                      strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{highlightLegalTermsInNode(children, lang)}</strong>,
                                     }}
                                   >
                                     {item.description}
@@ -1285,10 +1217,10 @@ ${analysisResult.compliance
                                   </strong>
                                   <Markdown
                                     components={{
-                                      p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+                                      p: ({ children }) => <p className="mb-1 last:mb-0">{highlightLegalTermsInNode(children, lang)}</p>,
                                       ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                                      li: ({ children }) => <li className="text-slate-700">{children}</li>,
-                                      strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{children}</strong>,
+                                      li: ({ children }) => <li className="text-slate-700">{highlightLegalTermsInNode(children, lang)}</li>,
+                                      strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{highlightLegalTermsInNode(children, lang)}</strong>,
                                     }}
                                   >
                                     {item.recommendation}
@@ -1361,8 +1293,8 @@ ${analysisResult.compliance
                                   <div className="mt-1.5 text-xs text-slate-700 leading-relaxed">
                                     <Markdown
                                       components={{
-                                        p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
-                                        strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{children}</strong>,
+                                        p: ({ children }) => <p className="mb-1 last:mb-0">{highlightLegalTermsInNode(children, lang)}</p>,
+                                        strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{highlightLegalTermsInNode(children, lang)}</strong>,
                                       }}
                                     >
                                       {item.description}
@@ -1402,8 +1334,8 @@ ${analysisResult.compliance
                           <div className="text-sm font-semibold text-slate-800 leading-relaxed">
                             <Markdown
                               components={{
-                                p: ({ children }) => <span>{children}</span>,
-                                strong: ({ children }) => <strong className="font-extrabold">{children}</strong>,
+                                p: ({ children }) => <span>{highlightLegalTermsInNode(children, lang)}</span>,
+                                strong: ({ children }) => <strong className="font-extrabold">{highlightLegalTermsInNode(children, lang)}</strong>,
                               }}
                             >
                               {analysisResult.termination.mechanism}
@@ -1419,8 +1351,8 @@ ${analysisResult.compliance
                             <div className="text-sm font-semibold text-slate-800 leading-relaxed">
                               <Markdown
                                 components={{
-                                  p: ({ children }) => <span>{children}</span>,
-                                  strong: ({ children }) => <strong className="font-extrabold">{children}</strong>,
+                                  p: ({ children }) => <span>{highlightLegalTermsInNode(children, lang)}</span>,
+                                  strong: ({ children }) => <strong className="font-extrabold">{highlightLegalTermsInNode(children, lang)}</strong>,
                                 }}
                               >
                                 {analysisResult.termination.noticePeriod}
@@ -1434,8 +1366,8 @@ ${analysisResult.compliance
                             <div className="text-sm font-semibold text-slate-800 leading-relaxed">
                               <Markdown
                                 components={{
-                                  p: ({ children }) => <span>{children}</span>,
-                                  strong: ({ children }) => <strong className="font-extrabold">{children}</strong>,
+                                  p: ({ children }) => <span>{highlightLegalTermsInNode(children, lang)}</span>,
+                                  strong: ({ children }) => <strong className="font-extrabold">{highlightLegalTermsInNode(children, lang)}</strong>,
                                 }}
                               >
                                 {analysisResult.termination.penalties}
@@ -1451,10 +1383,10 @@ ${analysisResult.compliance
                           <div className="text-xs text-slate-600 leading-relaxed space-y-1">
                             <Markdown
                               components={{
-                                p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+                                p: ({ children }) => <p className="mb-1 last:mb-0">{highlightLegalTermsInNode(children, lang)}</p>,
                                 ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                                li: ({ children }) => <li className="text-slate-600">{children}</li>,
-                                strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{children}</strong>,
+                                li: ({ children }) => <li className="text-slate-600">{highlightLegalTermsInNode(children, lang)}</li>,
+                                strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{highlightLegalTermsInNode(children, lang)}</strong>,
                               }}
                             >
                               {analysisResult.termination.details}
@@ -1494,8 +1426,8 @@ ${analysisResult.compliance
                       ) : (
                         <div className="space-y-4">
                           {analysisResult.compliance.map((item) => (
-                            <div key={item.id} className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-xs">
-                              <div className="flex items-center justify-between gap-4 bg-slate-50 px-4 py-3 border-b border-slate-200/70">
+                            <div key={item.id} className="rounded-xl border border-slate-200 bg-white shadow-xs">
+                              <div className="flex items-center justify-between gap-4 bg-slate-50 px-4 py-3 border-b border-slate-200/70 rounded-t-xl">
                                 <span className="font-bold text-xs text-slate-900">
                                   {sanitizeText(item.subject)}
                                 </span>
@@ -1522,10 +1454,10 @@ ${analysisResult.compliance
                                   </strong>
                                   <Markdown
                                     components={{
-                                      p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+                                      p: ({ children }) => <p className="mb-1 last:mb-0">{highlightLegalTermsInNode(children, lang)}</p>,
                                       ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                                      li: ({ children }) => <li className="text-slate-600">{children}</li>,
-                                      strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{children}</strong>,
+                                      li: ({ children }) => <li className="text-slate-600">{highlightLegalTermsInNode(children, lang)}</li>,
+                                      strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{highlightLegalTermsInNode(children, lang)}</strong>,
                                     }}
                                   >
                                     {item.details}
@@ -1538,10 +1470,10 @@ ${analysisResult.compliance
                                     </strong>
                                     <Markdown
                                       components={{
-                                        p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
+                                        p: ({ children }) => <p className="mb-1 last:mb-0">{highlightLegalTermsInNode(children, lang)}</p>,
                                         ul: ({ children }) => <ul className="list-disc pl-4 mb-2 space-y-1">{children}</ul>,
-                                        li: ({ children }) => <li className="text-slate-700">{children}</li>,
-                                        strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{children}</strong>,
+                                        li: ({ children }) => <li className="text-slate-700">{highlightLegalTermsInNode(children, lang)}</li>,
+                                        strong: ({ children }) => <strong className="font-bold text-slate-950 bg-amber-100/70 px-1 rounded-sm border-b border-amber-200/50">{highlightLegalTermsInNode(children, lang)}</strong>,
                                       }}
                                     >
                                       {item.remedy}
