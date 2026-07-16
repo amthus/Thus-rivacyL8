@@ -23,6 +23,7 @@ import {
 import { ContractAnalysis } from "./types";
 import Header from "./components/Header";
 import AboutView from "./components/AboutView";
+import ShareModal from "./components/ShareModal";
 import { DEMO_CONTRACTS } from "./data/demoContracts";
 import { generatePDF } from "./utils/pdfGenerator";
 import { LEGAL_TERMS } from "./data/legalTerms";
@@ -224,51 +225,10 @@ export default function App() {
 
   const [showAbout, setShowAbout] = useState(false);
   const [shareFeedback, setShareFeedback] = useState<string | null>(null);
+  const [isShareOpen, setIsShareOpen] = useState(false);
 
-  const handleShare = async () => {
-    const shareTitle = lang === "fr" ? "Rapport d'audit contractuel Thus L8" : "Thus L8 Contract Audit Report";
-    let shareText = lang === "fr" 
-      ? "Découvrez l'analyse d'audit contractuelle réalisée de manière sécurisée et rigoureuse avec Thus L8." 
-      : "Discover the secure and rigorous contract audit report analyzed with Thus L8.";
-
-    if (analysisResult) {
-      const riskCount = analysisResult.risks.length;
-      const criticalRiskCount = analysisResult.risks.filter(r => r.level === "high").length;
-      shareText = lang === "fr"
-        ? `Audit Thus L8 : ${riskCount} risques identifiés (dont ${criticalRiskCount} critique(s)). Indice de conformité calculé avec succès !`
-        : `Thus L8 Audit: ${riskCount} risks flagged (${criticalRiskCount} critical). Compliance score evaluated successfully!`;
-    }
-
-    const shareUrl = window.location.href;
-
-    // Try using Web Share API first
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: shareTitle,
-          text: shareText,
-          url: shareUrl,
-        });
-        setShareFeedback(lang === "fr" ? "Rapport partagé avec succès !" : "Report shared successfully!");
-        setTimeout(() => setShareFeedback(null), 3000);
-        return;
-      } catch (err) {
-        // Fallback to clipboard if share was cancelled or failed due to iframe sandbox policy
-        console.warn("Web Share API failed, falling back to clipboard:", err);
-      }
-    }
-
-    // Clipboard Fallback
-    try {
-      const fullTextToCopy = `${shareTitle}\n\n${shareText}\n\nLien du rapport : ${shareUrl}`;
-      await navigator.clipboard.writeText(fullTextToCopy);
-      setShareFeedback(lang === "fr" ? "Copié dans le presse-papiers !" : "Copied to clipboard!");
-      setTimeout(() => setShareFeedback(null), 3000);
-    } catch (err) {
-      console.error("Failed to copy:", err);
-      setShareFeedback(lang === "fr" ? "Échec de la copie." : "Failed to copy.");
-      setTimeout(() => setShareFeedback(null), 3000);
-    }
+  const handleShare = () => {
+    setIsShareOpen(true);
   };
 
   const [translationLang, setTranslationLang] = useState("en");
@@ -1784,6 +1744,12 @@ ${analysisResult.compliance
           </div>
         </div>
       </footer>
+
+      <ShareModal 
+        isOpen={isShareOpen} 
+        onClose={() => setIsShareOpen(false)} 
+        lang={lang} 
+      />
     </div>
   );
 }

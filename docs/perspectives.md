@@ -4,7 +4,7 @@ Ce document présente la vision stratégique à moyen et long terme pour l'évol
 
 ---
 
-## 🚀 Horizon 1 : Enrichissement de l'Intelligence Artificielle & Personnalisation
+## Horizon 1 : Enrichissement de l'Intelligence Artificielle & Personnalisation
 
 ### 1. Fine-tuning & Modèles Spécialisés (Régionalisation)
 * **Contexte de Droits Multiples :** Intégration de couches de spécialisation juridique pour adapter les réponses au droit applicable spécifique :
@@ -19,7 +19,7 @@ Ce document présente la vision stratégique à moyen et long terme pour l'évol
 
 ---
 
-## 👥 Horizon 2 : Collaboration & Gestion du Cycle de Vie (CLM)
+## Horizon 2 : Collaboration & Gestion du Cycle de Vie (CLM)
 
 ### 1. Espace de Travail Collaboratif & Versioning
 * **Négociations Multi-parties :** Partage sécurisé du rapport d'audit avec des tiers (clients, prestataires, avocats conseils) avec système d'annotation directe et de résolution de risques.
@@ -31,7 +31,7 @@ Ce document présente la vision stratégique à moyen et long terme pour l'évol
 
 ---
 
-## 🔌 Horizon 3 : Intégrations Professionnelles & Connecteurs (API)
+## Horizon 3 : Intégrations Professionnelles & Connecteurs (API)
 
 ### 1. Intégration Écosystème Documentaire & Cloud
 * **Google Workspace & Microsoft 365 :** Module d'extension direct dans Google Docs ou Microsoft Word pour auditer le contrat en cours de rédaction, sans quitter l'éditeur de texte.
@@ -43,7 +43,7 @@ Ce document présente la vision stratégique à moyen et long terme pour l'évol
 
 ---
 
-## 🛡️ Sécurité & Certification de Confiance
+## Sécurité & Certification de Confiance
 
 Pour accompagner ces perspectives, Thus L8 s'engagera dans des certifications de sécurité reconnues mondialement pour garantir la souveraineté totale des données traitées :
 1. **Certification ISO 27001 & SOC 2 Type II :** Garantie absolue des meilleures pratiques de sécurité de l'information.

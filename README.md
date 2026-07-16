@@ -51,3 +51,32 @@ L'application requiert les variables d'environnement suivantes, configurables vi
 
 - `GEMINI_API_KEY` : Clé secrète d'accès aux services de l'API Google GenAI.
 - `APP_URL` : URL publique d'hébergement de l'application.
+
+## Perspectives & Feuille de Route
+
+L'ambition de **Thus L8** ne s'arrête pas au diagnostic ponctuel. Nous projetons de bâtir un véritable écosystème d'intelligence juridique et documentaire centré sur la précision, la rapidité et la souveraineté des données. Notre feuille de route s'organise autour de trois horizons majeurs :
+
+1. **Horizon 1 : Intelligence Artificielle & Personnalisation** (Modèles régionaux spécialisés et génération de clauses correctives).
+2. **Horizon 2 : Collaboration & CLM** (Espaces partagés et suivi automatique des échéances contractuelles).
+3. **Horizon 3 : Intégrations & Connecteurs API** (Extensions de messagerie/traitement de texte, API Enterprise et signature électronique).
+
+👉 **Pour découvrir le détail de notre vision stratégique, consultez notre [Feuille de Route Complète](./docs/perspectives.md).**
+
+## 🤝 Contributions
+
+Nous sommes particulièrement ouverts et accueillants aux contributions de la communauté pour faire grandir et évoluer **Thus L8** ! Que vous soyez développeur, juriste, designer ou simple utilisateur passionné, votre aide est précieuse.
+
+### Comment contribuer ?
+
+1. **Signaler des anomalies ou proposer des évolutions** : Créez une demande d'amélioration (issue) décrivant clairement votre cas d'usage ou le bug rencontré.
+2. **Soumettre des modifications de code** :
+   - Créez une branche de travail descriptive (ex: `feature/nouvelle-langue-traduction` ou `fix/resolution-overflow-mobile`).
+   - Assurez-vous de respecter le typage strict TypeScript et de valider votre code à l'aide de `npm run lint` avant de soumettre.
+   - Soumettez une Pull Request (PR) claire détaillant les changements apportés et leurs bénéfices.
+3. **Enrichir le dictionnaire et les cas pratiques** : Proposez de nouveaux termes juridiques vulgarisés ou des exemples de contrats types pour étoffer les fonctionnalités d'assistance de la plateforme.
+
+### Directives de Développement
+- **Modularité** : Séparez les responsabilités. Évitez de surcharger `App.tsx` ; créez de nouveaux composants dans `/src/components`.
+- **Sécurité** : Ne placez jamais de clés ou d'appels d'API sensibles côté client. Tout le traitement cognitif doit être délégué de façon éphémère au serveur via `server.ts`.
+- **Aesthetic** : Conservez la direction artistique de l'application : minimaliste, aérée, accessible, avec des contrastes soignés et des interactions fluides.
+
