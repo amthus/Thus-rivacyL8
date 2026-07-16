@@ -16,26 +16,21 @@ interface CountryData {
 export default function ContactView({ lang, onClose }: ContactViewProps) {
   const isFr = lang === "fr";
 
-  // Form State
   const [fullName, setFullName] = useState("");
   const [source, setSource] = useState("");
   const [msgType, setMsgType] = useState<"conseil" | "innovation" | "apport">("conseil");
   const [message, setMessage] = useState("");
   const [channel, setChannel] = useState<"whatsapp" | "email">("whatsapp");
   
-  // WhatsApp Number State
   const [countryCode, setCountryCode] = useState("+229");
   const [phoneNum, setPhoneNum] = useState("");
 
-  // Email State
   const [emailAddr, setEmailAddr] = useState("");
 
-  // Submission States
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // Clean country name extraction and alphabetical sorting
   const countriesList: CountryData[] = (allCountries as any[])
     .map((c) => ({
       name: c.name.split(" (")[0],
@@ -44,7 +39,6 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  // Form Submission Handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);
