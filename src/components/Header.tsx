@@ -54,8 +54,8 @@ export default function Header({ lang, setLang, showAbout, setShowAbout, onShare
             {/* Bouton de Partage */}
             <button
               onClick={onShare}
-              className="flex items-center gap-2 px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 hover:text-indigo-900 border border-indigo-100 rounded-lg text-xs font-bold transition-all cursor-pointer shadow-3xs"
-              title={lang === "fr" ? "Partager le rapport" : "Share the report"}
+              className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-950 border border-slate-200 rounded-lg text-xs font-bold transition-all cursor-pointer shadow-3xs"
+              title={lang === "fr" ? "Partager l'application" : "Share the application"}
             >
               <Share2 className="h-3.5 w-3.5" />
               <span className="hidden sm:inline">{lang === "fr" ? "Partager" : "Share"}</span>

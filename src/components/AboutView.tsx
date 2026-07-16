@@ -36,7 +36,7 @@ export default function AboutView({ lang, onClose }: AboutViewProps) {
       storyTitle: "Notre Vision",
       storyText: (
         <span>
-          Les contrats régissent les affaires, mais leur complexité ralentit l'innovation. Thus L8 est né d'une ambition claire : démocratiser l'analyse contractuelle de haut niveau en combinant l'expertise juridique traditionnelle et la puissance cognitive des derniers modèles de langage d'IA. Ainsi, notre solution permet d'analyser, de vulgariser, de résumer et d'auditer des <span className="text-violet-600 font-bold">contrats complexes</span> ainsi que tous types de documents professionnels (<span className="text-violet-600 font-bold">commerciaux, techniques, administratifs ou juridiques</span>). Nous offrons aux <span className="text-slate-950 font-extrabold bg-slate-100 px-1.5 py-0.5 rounded-md">entrepreneurs, juristes et décideurs</span> un outil d'audit instantané, précis et extrêmement protecteur pour déceler les opportunités, sécuriser les clauses de résiliation et clarifier chaque obligation opérationnelle.
+          Les contrats régissent les affaires, mais leur complexité ralentit l'innovation. Thus L8 est né d'une ambition claire : démocratiser l'analyse contractuelle de haut niveau en combinant l'expertise juridique traditionnelle et la puissance cognitive des derniers modèles de langage d'IA. Ainsi, notre solution permet d'analyser, de vulgariser, de résumer et d'auditer des <span className="text-violet-600 font-bold">contrats complexes</span> ainsi que tous types de documents professionnels (<span className="text-violet-600 font-bold">commerciaux, techniques, administratifs ou juridiques</span>). Nous offrons aux <strong className="text-slate-950 font-extrabold">entrepreneurs, juristes et décideurs</strong> un outil d'audit instantané, précis et extrêmement protecteur pour déceler les opportunités, sécuriser les clauses de résiliation et clarifier chaque obligation opérationnelle.
         </span>
       ),
       
@@ -78,7 +78,7 @@ export default function AboutView({ lang, onClose }: AboutViewProps) {
       storyTitle: "Our Vision",
       storyText: (
         <span>
-          Contracts govern business, but their complexity slows down innovation. Thus L8 was born from a clear ambition: to democratize high-level contract analysis by combining traditional legal expertise with the cognitive power of the latest AI language models. Accordingly, our solution makes it possible to analyze, simplify, summarize, and audit <span className="text-violet-600 font-bold">complex contracts</span> as well as all types of professional documents (<span className="text-violet-600 font-bold">commercial, technical, administrative, or legal</span>). We offer <span className="text-slate-950 font-extrabold bg-slate-100 px-1.5 py-0.5 rounded-md">entrepreneurs, lawyers, and decision-makers</span> an instant, precise, and highly protective audit tool to detect opportunities, secure termination clauses, and clarify every operational obligation.
+          Contracts govern business, but their complexity slows down innovation. Thus L8 was born from a clear ambition: to democratize high-level contract analysis by combining traditional legal expertise with the cognitive power of the latest AI language models. Accordingly, our solution makes it possible to analyze, simplify, summarize, and audit <span className="text-violet-600 font-bold">complex contracts</span> as well as all types of professional documents (<span className="text-violet-600 font-bold">commercial, technical, administrative, or legal</span>). We offer <strong className="text-slate-950 font-extrabold">entrepreneurs, lawyers, and decision-makers</strong> an instant, precise, and highly protective audit tool to detect opportunities, secure termination clauses, and clarify every operational obligation.
         </span>
       ),
       
@@ -88,10 +88,10 @@ export default function AboutView({ lang, onClose }: AboutViewProps) {
       p2Title: "L.8 Precision Engine",
       p2Desc: "Powered by the latest generation Google DeepMind AI models executed server-side, our engine applies rigorous semantic analysis. Every audit is cross-referenced with our legal glossary to ensure unmatched reliability.",
       
-      p3Title: "Confidentiality & Security",
+      p3Title: "Professional Secrecy & Security",
       p3Desc: (
         <span>
-          Your contract data is highly <span className="text-emerald-600 font-extrabold underline decoration-emerald-300 underline-offset-4">confidential</span>. Thus L8 is designed with strict security principles: all requests are processed ephemerally on secure servers <span className="text-emerald-600 font-extrabold bg-emerald-50 px-1.5 py-0.5 rounded-md">without any persistent storage</span> of your original documents.
+          Your contract data is highly <span className="text-emerald-600 font-extrabold underline decoration-emerald-300 underline-offset-4">confidential</span>. Thus L8 is designed with strict security principles: all requests are processed ephemerally on secure servers <span className="text-emerald-600 font-extrabold bg-emerald-50 px-1.5 py-0.5 rounded-md">without any storage</span> of your original documents.
         </span>
       ),
       
@@ -132,48 +132,48 @@ export default function AboutView({ lang, onClose }: AboutViewProps) {
 
       {/* Hero Section */}
       <div className="relative text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 text-white text-[10px] font-mono tracking-widest font-black uppercase">
-          <Sparkles className="h-3 w-3 text-indigo-400" />
+        <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-950 text-white text-[10px] font-bold tracking-widest uppercase shadow-sm">
+          <Sparkles className="h-3 w-3 text-indigo-400 fill-indigo-400 animate-pulse" />
           <span>{t.tagline}</span>
         </div>
         <h2 className="text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl">
           {t.title}
         </h2>
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">
+        <p className="text-base sm:text-lg text-slate-500 leading-relaxed font-medium">
           {t.subtitle}
         </p>
       </div>
 
       {/* Storytelling block */}
       <div className="grid gap-8 md:grid-cols-12 items-stretch">
-        <div className="md:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col justify-center space-y-4 shadow-xs relative overflow-hidden">
-          <div className="absolute top-0 right-0 p-6 opacity-5 pointer-events-none">
-            <Scale className="h-32 w-32 text-slate-900" />
+        <div className="md:col-span-7 bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 flex flex-col justify-center space-y-6 shadow-sm relative overflow-hidden">
+          <div className="absolute right-6 top-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none">
+            <Scale className="h-44 w-44 text-slate-950" />
           </div>
-          <div className="flex items-center gap-2 text-indigo-600">
+          <div className="flex items-center gap-2.5 text-indigo-600 relative z-10">
             <BookOpen className="h-5 w-5" />
-            <h3 className="text-sm font-black uppercase tracking-wider font-mono">{t.storyTitle}</h3>
+            <h3 className="text-xs font-bold uppercase tracking-widest font-mono">{t.storyTitle}</h3>
           </div>
-          <p className="text-sm text-slate-600 leading-relaxed font-medium">
+          <p className="text-sm sm:text-[14px] text-slate-600 leading-relaxed font-medium relative z-10">
             {t.storyText}
           </p>
         </div>
 
-        <div className="md:col-span-5 bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 text-white border border-slate-900 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group">
+        <div className="md:col-span-5 bg-[#0B0F19] border border-slate-900 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden group">
           {/* Ambient light effects inside the container */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.18),transparent_60%)] pointer-events-none" />
-          <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-600/15 transition-all duration-700" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.06),transparent_60%)] pointer-events-none" />
+          <div className="absolute -right-12 -bottom-12 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/10 transition-all duration-700" />
           
           <div className="space-y-4 relative z-10">
-            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-mono text-[9px] uppercase tracking-widest font-bold">
+            <div className="inline-block px-3 py-1 rounded-md bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-mono text-[9px] uppercase tracking-widest font-bold">
               {isFr ? "EXCELLENCE OPÉRATIONNELLE" : "OPERATIONAL EXCELLENCE"}
             </div>
             
-            <div className="space-y-2">
-              <h3 className="text-xl font-black tracking-tight font-sans text-indigo-300 bg-gradient-to-r from-indigo-200 to-white bg-clip-text text-transparent">
+            <div className="space-y-1">
+              <h3 className="text-xl font-bold tracking-tight text-white">
                 {t.metricsTitle}
               </h3>
-              <p className="text-xs text-slate-300 leading-relaxed font-medium">
+              <p className="text-xs text-slate-400 leading-relaxed font-medium">
                 {isFr 
                   ? "Une ingénierie de précision pour un diagnostic rapide, fiable et sans compromis."
                   : "Precision engineering for a fast, reliable, and compromise-free diagnosis."}
@@ -181,55 +181,57 @@ export default function AboutView({ lang, onClose }: AboutViewProps) {
             </div>
           </div>
 
-          <div className="space-y-4 pt-6 mt-6 border-t border-slate-800/80 relative z-10">
+          <div className="h-[1px] bg-slate-800/50 my-6 relative z-10" />
+
+          <div className="space-y-6 relative z-10">
             {/* Metric 1 */}
-            <div className="flex items-start gap-3.5 p-2 rounded-2xl hover:bg-white/5 transition-all duration-300">
+            <div className="flex gap-4 items-start">
               <div className="h-10 w-10 shrink-0 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shadow-2xs">
                 <ShieldCheck className="h-5 w-5" />
               </div>
-              <div className="space-y-0.5">
-                <div className="text-lg font-black text-white tracking-tight flex items-center gap-1">
-                  <span>{t.metric1Val}</span>
-                  <span className="text-[10px] text-emerald-400 font-mono uppercase font-bold tracking-widest bg-emerald-500/10 px-1 py-0.2 rounded">SECURE</span>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-bold text-white leading-none">{t.metric1Val}</span>
+                  <span className="text-[8px] text-emerald-400 font-mono uppercase font-bold tracking-widest bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 rounded">SECURE</span>
                 </div>
-                <div className="text-xs text-slate-300 font-bold leading-tight">{t.metric1Lbl}</div>
-                <p className="text-[10px] text-slate-400 font-medium leading-normal">
-                  {isFr ? "Sécurité absolue. Zéro stockage permanent." : "Ultimate security. Zero permanent storage."}
-                </p>
+                <div className="text-xs font-bold text-white leading-tight">{t.metric1Lbl}</div>
+                <div className="text-[11px] text-slate-400 font-medium leading-relaxed">
+                  {isFr ? "Sécurité absolue. Zéro stockage permanent." : "Absolute security. Zero permanent storage."}
+                </div>
               </div>
             </div>
 
             {/* Metric 2 */}
-            <div className="flex items-start gap-3.5 p-2 rounded-2xl hover:bg-white/5 transition-all duration-300">
+            <div className="flex gap-4 items-start">
               <div className="h-10 w-10 shrink-0 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shadow-2xs">
                 <Zap className="h-5 w-5" />
               </div>
-              <div className="space-y-0.5">
-                <div className="text-lg font-black text-white tracking-tight flex items-center gap-1">
-                  <span>{t.metric2Val}</span>
-                  <span className="text-[10px] text-amber-400 font-mono uppercase font-bold tracking-widest bg-amber-500/10 px-1 py-0.2 rounded">ULTRA-FAST</span>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-bold text-white leading-none">{t.metric2Val}</span>
+                  <span className="text-[8px] text-amber-400 font-mono uppercase font-bold tracking-widest bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold">ULTRA-FAST</span>
                 </div>
-                <div className="text-xs text-slate-300 font-bold leading-tight">{t.metric2Lbl}</div>
-                <p className="text-[10px] text-slate-400 font-medium leading-normal">
-                  {isFr ? "Décryptage instantané de vos clauses." : "Instant clause analysis and extraction."}
-                </p>
+                <div className="text-xs font-bold text-white leading-tight">{t.metric2Lbl}</div>
+                <div className="text-[11px] text-slate-400 font-medium leading-relaxed">
+                  {isFr ? "Décryptage instantané de vos clauses." : "Instant decryption of your clauses."}
+                </div>
               </div>
             </div>
 
             {/* Metric 3 */}
-            <div className="flex items-start gap-3.5 p-2 rounded-2xl hover:bg-white/5 transition-all duration-300">
+            <div className="flex gap-4 items-start">
               <div className="h-10 w-10 shrink-0 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 shadow-2xs">
                 <Activity className="h-5 w-5" />
               </div>
-              <div className="space-y-0.5">
-                <div className="text-lg font-black text-white tracking-tight flex items-center gap-1">
-                  <span>{t.metric3Val}</span>
-                  <span className="text-[10px] text-indigo-400 font-mono uppercase font-bold tracking-widest bg-indigo-500/10 px-1 py-0.2 rounded">EXHAUSTIVE</span>
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-bold text-white leading-none">{t.metric3Val}</span>
+                  <span className="text-[8px] text-indigo-400 font-mono uppercase font-bold tracking-widest bg-indigo-500/10 border border-indigo-500/20 px-1.5 py-0.5 rounded">EXHAUSTIVE</span>
                 </div>
-                <div className="text-xs text-slate-300 font-bold leading-tight">{t.metric3Lbl}</div>
-                <p className="text-[10px] text-slate-400 font-medium leading-normal">
-                  {isFr ? "Vérification complète à 360°." : "Full 360° risk and liability check."}
-                </p>
+                <div className="text-xs font-bold text-white leading-tight">{t.metric3Lbl}</div>
+                <div className="text-[11px] text-slate-400 font-medium leading-relaxed">
+                  {isFr ? "Vérification complète à 360°." : "Complete 360° verification."}
+                </div>
               </div>
             </div>
           </div>
@@ -361,7 +363,7 @@ export default function AboutView({ lang, onClose }: AboutViewProps) {
                   className="w-full flex items-center justify-between p-4 text-left font-bold text-slate-900 hover:bg-slate-50 transition-colors duration-150 focus:outline-none"
                 >
                   <div className="flex items-center gap-2.5">
-                    <HelpCircle className="h-4 w-4 text-indigo-500 shrink-0" />
+                    <HelpCircle className="h-4 w-4 text-indigo-600 shrink-0" />
                     <span className="text-xs sm:text-sm tracking-tight">{item.q}</span>
                   </div>
                   {isOpen ? (

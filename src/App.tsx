@@ -24,6 +24,7 @@ import { ContractAnalysis } from "./types";
 import Header from "./components/Header";
 import AboutView from "./components/AboutView";
 import ShareModal from "./components/ShareModal";
+import SecurityCertificates from "./components/SecurityCertificates";
 import { DEMO_CONTRACTS } from "./data/demoContracts";
 import { generatePDF } from "./utils/pdfGenerator";
 import { LEGAL_TERMS } from "./data/legalTerms";
@@ -34,70 +35,171 @@ function sanitizeText(str: string | undefined | null): string {
   return str.replace(/\*\*/g, "").replace(/\*/g, "").trim();
 }
 
-function translateVercelError(rawText: string, lang: "fr" | "en"): string {
-  if (!rawText || typeof rawText !== "string") {
+function formatUserFriendlyError(rawError: any, lang: "fr" | "en"): string {
+  if (!rawError) {
     return lang === "fr" ? "Une erreur inconnue est survenue." : "An unknown error has occurred.";
   }
 
-  let cleanText = rawText;
-  if (rawText.toLowerCase().includes("<html") || rawText.toLowerCase().includes("<body")) {
-    const bodyMatch = rawText.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-    const contentToClean = bodyMatch && bodyMatch[1] ? bodyMatch[1] : rawText;
-    cleanText = contentToClean
+  let errorText = "";
+  if (typeof rawError === "object") {
+    if (rawError.message) {
+      errorText = rawError.message;
+    } else {
+      try {
+        errorText = JSON.stringify(rawError);
+      } catch {
+        errorText = String(rawError);
+      }
+    }
+  } else {
+    errorText = String(rawError);
+  }
+
+  // Attempt to find and extract JSON block
+  let jsonExtracted: any = null;
+  const jsonMatch = errorText.match(/(\{[\s\S]*\})/);
+  if (jsonMatch) {
+    try {
+      jsonExtracted = JSON.parse(jsonMatch[1]);
+    } catch {
+      // Ignored
+    }
+  }
+
+  if (!jsonExtracted) {
+    try {
+      jsonExtracted = JSON.parse(errorText);
+    } catch {
+      // Ignored
+    }
+  }
+
+  let code: any = null;
+  let message: string = "";
+  let status: string = "";
+
+  if (jsonExtracted) {
+    const errObj = jsonExtracted.error || jsonExtracted;
+    if (typeof errObj === "object" && errObj !== null) {
+      code = errObj.code || jsonExtracted.code;
+      message = errObj.message || jsonExtracted.message || "";
+      status = errObj.status || jsonExtracted.status || "";
+    } else if (typeof errObj === "string") {
+      message = errObj;
+    }
+  }
+
+  const finalMessage = message || errorText;
+  const lowerMsg = finalMessage.toLowerCase();
+  const lowerStatus = status ? status.toLowerCase() : "";
+
+  // 1. High demand / Service unavailable (503)
+  if (
+    code === 503 || 
+    lowerStatus.includes("unavailable") || 
+    lowerMsg.includes("high demand") || 
+    lowerMsg.includes("temporarily overloaded") ||
+    lowerMsg.includes("unavailable") ||
+    lowerMsg.includes("service_unavailable") ||
+    lowerMsg.includes("experiencing high demand")
+  ) {
+    return lang === "fr"
+      ? "Le service d'analyse par IA est actuellement très sollicité en raison d'une forte affluence. Ces pics de demande sont généralement temporaires. Veuillez patienter quelques instants puis réessayer."
+      : "The AI analysis service is currently experiencing high demand. These temporary spikes usually resolve quickly. Please wait a moment and try again.";
+  }
+
+  // 2. Rate limit / Too many requests (429)
+  if (
+    code === 429 || 
+    lowerStatus.includes("resource_exhausted") || 
+    lowerMsg.includes("quota") || 
+    lowerMsg.includes("rate limit") || 
+    lowerMsg.includes("too many requests") ||
+    lowerMsg.includes("exhausted")
+  ) {
+    return lang === "fr"
+      ? "Limite d'utilisation de l'IA atteinte ou quota dépassé. Veuillez patienter une minute avant de soumettre une nouvelle analyse."
+      : "AI usage limit reached or quota exceeded. Please wait a minute before submitting another analysis.";
+  }
+
+  // 3. Size / Payload too large / Vercel body limits (413)
+  if (
+    code === 413 || 
+    lowerMsg.includes("payload too large") || 
+    lowerMsg.includes("request entity too large") || 
+    lowerMsg.includes("too large") || 
+    lowerMsg.includes("body size limit") ||
+    lowerMsg.includes("maximum size")
+  ) {
+    return lang === "fr"
+      ? "Le document transmis est trop volumineux. Pour garantir une analyse optimale, veuillez utiliser un document de moins de 3 Mo."
+      : "The document you uploaded is too large. To ensure an optimal analysis, please use a file smaller than 3 MB.";
+  }
+
+  // 4. Timeout (504)
+  if (
+    code === 504 || 
+    lowerMsg.includes("timeout") || 
+    lowerMsg.includes("deadline exceeded") || 
+    lowerMsg.includes("timed out")
+  ) {
+    return lang === "fr"
+      ? "L'analyse a pris plus de temps que prévu en raison de la complexité du document. Veuillez réessayer avec un texte légèrement plus court ou un document textuel direct."
+      : "The analysis took longer than expected due to the complexity of the document. Please try again with a slightly shorter text or direct text-based document.";
+  }
+
+  // 5. Connection error / API key issues / Invalid argument (400 / 500 etc)
+  if (lowerMsg.includes("api key") || lowerMsg.includes("apikey")) {
+    return lang === "fr"
+      ? "Configuration serveur incorrecte (clé API manquante ou invalide). Veuillez contacter l'administrateur."
+      : "Server configuration issue (missing or invalid API key). Please contact the administrator.";
+  }
+
+  if (lowerMsg.includes("invalid argument") || lowerMsg.includes("bad request") || code === 400) {
+    return lang === "fr"
+      ? "Le contenu transmis ou le format du fichier n'est pas pris en charge ou est corrompu."
+      : "The submitted content or file format is unsupported or corrupted.";
+  }
+
+  // Fallback cleanup of HTML
+  let cleaned = errorText;
+  if (errorText.toLowerCase().includes("<html") || errorText.toLowerCase().includes("<body")) {
+    const bodyMatch = errorText.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    const contentToClean = bodyMatch && bodyMatch[1] ? bodyMatch[1] : errorText;
+    cleaned = contentToClean
       .replace(/<style[^>]*>([\s\S]*?)<\/style>/gi, "")
       .replace(/<script[^>]*>([\s\S]*?)<\/script>/gi, "")
       .replace(/<[^>]+>/g, "\n")
       .trim();
   }
 
-  const lines = cleanText
-    .split("\n")
-    .map((line) => line.trim())
-    .filter(Boolean);
+  // Strips technical prefixes and handles JSON leakage
+  cleaned = cleaned.replace(/erreur\s*d'analyse\s*/gi, "");
+  cleaned = cleaned.replace(/^[^{\n]*(\{[\s\S]*\})[^\n]*$/gi, "$1");
 
-  const translatedLines = lines.map((line) => {
-    const lower = line.toLowerCase();
+  if (cleaned.trim().startsWith("{") && cleaned.trim().endsWith("}")) {
+    return lang === "fr"
+      ? "Une erreur technique s'est produite lors de l'appel au moteur d'IA. Veuillez réessayer dans quelques instants."
+      : "A technical error occurred while calling the AI engine. Please try again in a few moments.";
+  }
 
-    if (lower.includes("a server error has occurred")) {
-      return lang === "fr"
-        ? "Une erreur de serveur est survenue (A server error has occurred)"
-        : "A server error has occurred";
-    }
-    if (lower.includes("function_invocation_failed")) {
-      return lang === "fr"
-        ? "ÉCHEC D'INVOCATION DE LA FONCTION (FUNCTION_INVOCATION_FAILED)"
-        : "FUNCTION INVOCATION FAILED";
-    }
-    if (lower.includes("function_invocation_timeout")) {
-      return lang === "fr"
-        ? "DÉPASSEMENT DE DÉLAI DE L'INVOCATION (FUNCTION_INVOCATION_TIMEOUT)"
-        : "FUNCTION INVOCATION TIMEOUT";
-    }
-    if (lower.includes("payload too large") || lower.includes("request entity too large") || lower.includes("413")) {
-      return lang === "fr"
-        ? "CONTENU ENVOYÉ TROP VOLUMINEUX (PAYLOAD TOO LARGE - Max 4.5 Mo)"
-        : "PAYLOAD TOO LARGE (Max 4.5 MB)";
-    }
-    if (lower.includes("gateway timeout") || lower.includes("504")) {
-      return lang === "fr"
-        ? "DÉPASSEMENT DE DÉLAI DE PASSERELLE (GATEWAY TIMEOUT 504)"
-        : "GATEWAY TIMEOUT (504)";
-    }
-    if (lower.includes("bad gateway") || lower.includes("502")) {
-      return lang === "fr"
-        ? "ERREUR DE PASSERELLE (BAD GATEWAY 502)"
-        : "BAD GATEWAY (502)";
-    }
-    if (lower.includes("not found") || lower.includes("404")) {
-      return lang === "fr"
-        ? "RESSOURCE NON TROUVÉE (NOT FOUND 404)"
-        : "NOT FOUND (404)";
-    }
+  if (cleaned.length > 150 && !cleaned.includes(" ")) {
+    return lang === "fr"
+      ? "Une erreur technique inattendue est survenue lors du traitement."
+      : "An unexpected technical error occurred during processing.";
+  }
 
-    return line;
-  });
+  if (cleaned.toLowerCase() === "failed to fetch") {
+    return lang === "fr"
+      ? "Impossible de se connecter au serveur. Veuillez vérifier votre connexion internet."
+      : "Failed to connect to the server. Please check your internet connection.";
+  }
 
-  return translatedLines.join("\n");
+  return cleaned;
+}
+
+function translateVercelError(rawText: string, lang: "fr" | "en"): string {
+  return formatUserFriendlyError(rawText, lang);
 }
 
 interface TooltipProps {
@@ -115,7 +217,7 @@ function Tooltip({ term, definition, children }: TooltipProps) {
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
     >
-      <span className="underline decoration-dotted decoration-indigo-500 hover:decoration-solid cursor-help text-indigo-700 hover:text-indigo-900 font-semibold transition-all bg-indigo-50/40 hover:bg-indigo-50/80 px-1 rounded-sm">
+      <span className="underline decoration-dotted decoration-slate-400 hover:decoration-solid cursor-help text-slate-800 hover:text-slate-950 font-bold transition-all bg-slate-100/80 hover:bg-slate-200 px-1.5 py-0.5 rounded-md">
         {children}
       </span>
       <AnimatePresence>
@@ -127,7 +229,7 @@ function Tooltip({ term, definition, children }: TooltipProps) {
             transition={{ duration: 0.12, ease: "easeOut" }}
             className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 bg-slate-900 text-white text-[11px] rounded-lg p-3 shadow-xl z-50 pointer-events-none text-left font-sans whitespace-normal"
           >
-            <span className="font-bold block border-b border-slate-700 pb-1 mb-1 text-indigo-300">
+            <span className="font-bold block border-b border-slate-700 pb-1 mb-1 text-slate-200">
               {term}
             </span>
             <span className="block leading-relaxed text-slate-200 font-medium">
@@ -412,7 +514,8 @@ export default function App() {
       }
 
       if (!response.ok) {
-        throw new Error(data?.error || (lang === "fr" ? "Erreur de communication avec le serveur." : "Server communication error."));
+        const errorContent = data?.error ? (typeof data.error === "object" ? JSON.stringify(data.error) : data.error) : null;
+        throw new Error(errorContent || (lang === "fr" ? "Erreur de communication avec le serveur." : "Server communication error."));
       }
 
       const finalResult: ContractAnalysis = {
@@ -426,7 +529,7 @@ export default function App() {
       setCheckedObligations({});
       setActiveTab("summary");
     } catch (err: any) {
-      setErrorMsg(err.message || "Une erreur est survenue lors de l'analyse.");
+      setErrorMsg(formatUserFriendlyError(err.message || err, lang));
     } finally {
       setIsAnalyzing(false);
     }
@@ -474,12 +577,13 @@ export default function App() {
       }
 
       if (!response.ok) {
-        throw new Error(data?.error || (lang === "fr" ? "Erreur lors de la traduction." : "Translation error."));
+        const errorContent = data?.error ? (typeof data.error === "object" ? JSON.stringify(data.error) : data.error) : null;
+        throw new Error(errorContent || (lang === "fr" ? "Erreur lors de la traduction." : "Translation error."));
       }
 
       setTranslatedContent(data.translatedText);
     } catch (err: any) {
-      setTranslatedContent(`Erreur : ${err.message || "Échec de la traduction."}`);
+      setTranslatedContent(`${lang === "fr" ? "Erreur" : "Error"} : ${formatUserFriendlyError(err.message || err, lang)}`);
     } finally {
       setIsTranslating(false);
     }
@@ -627,7 +731,7 @@ ${analysisResult.compliance
             exit={{ opacity: 0, y: -20, x: "-50%" }}
             className="fixed top-20 left-1/2 z-50 bg-slate-950 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-bold font-mono tracking-tight flex items-center gap-2 border border-slate-850"
           >
-            <div className="h-2 w-2 rounded-full bg-indigo-400 animate-pulse" />
+            <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
             <span>{shareFeedback}</span>
           </motion.div>
         )}
@@ -955,6 +1059,9 @@ ${analysisResult.compliance
                     </li>
                   </ul>
                 </div>
+
+                {/* Security and GDPR / APDP certifications and AES-256 */}
+                <SecurityCertificates lang={lang} translations={t} />
               </div>
             </div>
           </div>
@@ -1011,10 +1118,10 @@ ${analysisResult.compliance
 
             <div className="grid gap-8 lg:grid-cols-12">
               <div className="lg:col-span-8 space-y-6">
-                <div className="flex gap-1 border-b border-slate-200 bg-slate-100 p-1 rounded-xl relative">
+                <div className="flex gap-1 border-b border-slate-200 bg-slate-100 p-1 rounded-xl relative overflow-x-auto flex-nowrap whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                   <button
                     onClick={() => setActiveTab("summary")}
-                    className={`relative flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 ${
+                    className={`relative flex-1 text-center py-2 px-3 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 shrink-0 ${
                       activeTab === "summary"
                         ? "text-slate-900 font-bold"
                         : "text-slate-600 hover:text-slate-900"
@@ -1031,7 +1138,7 @@ ${analysisResult.compliance
                   </button>
                   <button
                     onClick={() => setActiveTab("risks")}
-                    className={`relative flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 ${
+                    className={`relative flex-1 text-center py-2 px-3 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 shrink-0 ${
                       activeTab === "risks"
                         ? "text-slate-900 font-bold"
                         : "text-slate-600 hover:text-slate-900"
@@ -1048,7 +1155,7 @@ ${analysisResult.compliance
                   </button>
                   <button
                     onClick={() => setActiveTab("obligations")}
-                    className={`relative flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 ${
+                    className={`relative flex-1 text-center py-2 px-3 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 shrink-0 ${
                       activeTab === "obligations"
                         ? "text-slate-900 font-bold"
                         : "text-slate-600 hover:text-slate-900"
@@ -1065,7 +1172,7 @@ ${analysisResult.compliance
                   </button>
                   <button
                     onClick={() => setActiveTab("termination")}
-                    className={`relative flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 ${
+                    className={`relative flex-1 text-center py-2 px-3 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 shrink-0 ${
                       activeTab === "termination"
                         ? "text-slate-900 font-bold"
                         : "text-slate-600 hover:text-slate-900"
@@ -1082,7 +1189,7 @@ ${analysisResult.compliance
                   </button>
                   <button
                     onClick={() => setActiveTab("compliance")}
-                    className={`relative flex-1 text-center py-2 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 ${
+                    className={`relative flex-1 text-center py-2 px-3 text-xs font-semibold rounded-lg transition-colors duration-200 cursor-pointer z-10 shrink-0 ${
                       activeTab === "compliance"
                         ? "text-slate-900 font-bold"
                         : "text-slate-600 hover:text-slate-900"
@@ -1099,7 +1206,7 @@ ${analysisResult.compliance
                   </button>
                 </div>
 
-                <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm min-h-[400px]">
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm min-h-[400px]">
                   {activeTab === "summary" && (
                     <div className="space-y-6">
                       {/* Score global de conformité (Circular Gauge) */}
@@ -1734,13 +1841,16 @@ ${analysisResult.compliance
       </main>
 
       <footer className="mt-16 border-t border-slate-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-slate-500">
+        <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center gap-4">
+          <p className="text-xs text-slate-500 text-center max-w-2xl leading-relaxed">
             {t.footerText}
           </p>
-          <div className="flex gap-4">
-            <span className="text-xs text-slate-400">{t.footerRgpd}</span>
-            <span className="text-xs text-slate-400">{t.footerAes}</span>
+          <div className="flex items-center justify-center gap-2 sm:gap-3 text-[10px] sm:text-xs text-slate-400 font-medium whitespace-nowrap flex-nowrap">
+            <span>{t.footerRgpd}</span>
+            <span className="text-slate-300 select-none">•</span>
+            <span>{t.footerAes}</span>
+            <span className="text-slate-300 select-none">•</span>
+            <span>{t.footerApdp}</span>
           </div>
         </div>
       </footer>

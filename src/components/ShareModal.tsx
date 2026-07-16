@@ -70,7 +70,7 @@ export default function ShareModal({ isOpen, onClose, lang }: ShareModalProps) {
 
           {/* Header section with title */}
           <div className="space-y-1 pr-6">
-            <div className="inline-flex items-center gap-1.5 text-indigo-600">
+            <div className="inline-flex items-center gap-1.5 text-slate-800">
               <Share2 className="h-3.5 w-3.5" />
               <span className="font-mono text-[9px] font-bold tracking-wider uppercase">
                 {isFr ? "Partager l'application" : "Share the Application"}
@@ -119,9 +119,9 @@ export default function ShareModal({ isOpen, onClose, lang }: ShareModalProps) {
                   href={shareLinks.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-50 hover:bg-indigo-50 border border-slate-150 text-slate-700 hover:text-indigo-700 transition-all text-[11px] font-bold"
+                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-150 text-slate-700 hover:text-slate-950 transition-all text-[11px] font-bold"
                 >
-                  <Linkedin className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
+                  <Linkedin className="h-3.5 w-3.5 text-slate-600 shrink-0" />
                   <span>LinkedIn</span>
                 </a>
 
@@ -173,7 +173,7 @@ export default function ShareModal({ isOpen, onClose, lang }: ShareModalProps) {
           </div>
 
           {/* Slogan invitation text */}
-          <div className="bg-indigo-50/40 border border-indigo-100/40 rounded-xl p-2.5 text-[10.5px] text-slate-700 leading-relaxed font-medium">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-[10.5px] text-slate-700 leading-relaxed font-medium">
             {isFr ? (
               <>
                 <span className="font-extrabold text-slate-900">Faites grandir la communauté !</span> Invitez vos contacts à tester Thus L8 pour décrypter leurs documents et contrats sans aucun stockage permanent.
