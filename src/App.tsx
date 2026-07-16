@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { ContractAnalysis } from "./types";
 import Header from "./components/Header";
+import AboutView from "./components/AboutView";
 import { DEMO_CONTRACTS } from "./data/demoContracts";
 import { generatePDF } from "./utils/pdfGenerator";
 import { LEGAL_TERMS } from "./data/legalTerms";
@@ -209,12 +210,66 @@ export default function App() {
   const [lang, setLang] = useState<"fr" | "en">("fr");
   const t = TRANSLATIONS[lang];
 
+  React.useEffect(() => {
+    // Ensure dark mode class is stripped from document root if it was set
+    document.documentElement.classList.remove("dark");
+  }, []);
+
   const [activeTab, setActiveTab] = useState<"summary" | "risks" | "obligations" | "termination" | "compliance">("summary");
   const [rawTextInput, setRawTextInput] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<ContractAnalysis | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const [showAbout, setShowAbout] = useState(false);
+  const [shareFeedback, setShareFeedback] = useState<string | null>(null);
+
+  const handleShare = async () => {
+    const shareTitle = lang === "fr" ? "Rapport d'audit contractuel Thus L8" : "Thus L8 Contract Audit Report";
+    let shareText = lang === "fr" 
+      ? "Découvrez l'analyse d'audit contractuelle réalisée de manière sécurisée et rigoureuse avec Thus L8." 
+      : "Discover the secure and rigorous contract audit report analyzed with Thus L8.";
+
+    if (analysisResult) {
+      const riskCount = analysisResult.risks.length;
+      const criticalRiskCount = analysisResult.risks.filter(r => r.level === "high").length;
+      shareText = lang === "fr"
+        ? `Audit Thus L8 : ${riskCount} risques identifiés (dont ${criticalRiskCount} critique(s)). Indice de conformité calculé avec succès !`
+        : `Thus L8 Audit: ${riskCount} risks flagged (${criticalRiskCount} critical). Compliance score evaluated successfully!`;
+    }
+
+    const shareUrl = window.location.href;
+
+    // Try using Web Share API first
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: shareTitle,
+          text: shareText,
+          url: shareUrl,
+        });
+        setShareFeedback(lang === "fr" ? "Rapport partagé avec succès !" : "Report shared successfully!");
+        setTimeout(() => setShareFeedback(null), 3000);
+        return;
+      } catch (err) {
+        // Fallback to clipboard if share was cancelled or failed due to iframe sandbox policy
+        console.warn("Web Share API failed, falling back to clipboard:", err);
+      }
+    }
+
+    // Clipboard Fallback
+    try {
+      const fullTextToCopy = `${shareTitle}\n\n${shareText}\n\nLien du rapport : ${shareUrl}`;
+      await navigator.clipboard.writeText(fullTextToCopy);
+      setShareFeedback(lang === "fr" ? "Copié dans le presse-papiers !" : "Copied to clipboard!");
+      setTimeout(() => setShareFeedback(null), 3000);
+    } catch (err) {
+      console.error("Failed to copy:", err);
+      setShareFeedback(lang === "fr" ? "Échec de la copie." : "Failed to copy.");
+      setTimeout(() => setShareFeedback(null), 3000);
+    }
+  };
 
   const [translationLang, setTranslationLang] = useState("en");
   const [isTranslating, setIsTranslating] = useState(false);
@@ -595,16 +650,39 @@ ${analysisResult.compliance
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased selection:bg-slate-900 selection:text-white">
-      <Header lang={lang} setLang={setLang} />
+      <Header 
+        lang={lang} 
+        setLang={setLang} 
+        showAbout={showAbout} 
+        setShowAbout={setShowAbout} 
+        onShare={handleShare} 
+      />
+
+      {/* Share Toast Notification */}
+      <AnimatePresence>
+        {shareFeedback && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: -20, x: "-50%" }}
+            className="fixed top-20 left-1/2 z-50 bg-slate-950 text-white px-4 py-2.5 rounded-xl shadow-xl text-xs font-bold font-mono tracking-tight flex items-center gap-2 border border-slate-850"
+          >
+            <div className="h-2 w-2 rounded-full bg-indigo-400 animate-pulse" />
+            <span>{shareFeedback}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <motion.div
-          key={lang}
+          key={showAbout ? "about" : lang}
           initial={{ opacity: 0.35, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.28, ease: "easeInOut" }}
         >
-          {!analysisResult ? (
+          {showAbout ? (
+            <AboutView lang={lang} onClose={() => setShowAbout(false)} />
+          ) : !analysisResult ? (
           <div className="space-y-8">
             <div className="max-w-3xl">
               <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
@@ -619,7 +697,7 @@ ${analysisResult.compliance
             <div className="space-y-4 bg-slate-100/50 rounded-2xl p-6 border border-slate-200/80">
               <div className="flex flex-col gap-1">
                 <div className="flex items-center">
-                  <h3 className="text-[10px] sm:text-xs font-black uppercase tracking-wider whitespace-nowrap bg-yellow-200 text-yellow-950 px-2 py-1 rounded-md shadow-xs">
+                  <h3 className="text-[10px] sm:text-xs font-black uppercase tracking-wider bg-yellow-200 text-yellow-950 px-2 py-1 rounded-md shadow-xs whitespace-normal break-words">
                     {t.demoTitle}
                   </h3>
                 </div>
@@ -1061,11 +1139,113 @@ ${analysisResult.compliance
                   </button>
                 </div>
 
-                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm min-h-[400px]">
+                <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm min-h-[400px]">
                   {activeTab === "summary" && (
                     <div className="space-y-6">
+                      {/* Score global de conformité (Circular Gauge) */}
+                      {(() => {
+                        const score = (() => {
+                          if (!analysisResult) return 100;
+                          const high = analysisResult.risks.filter(r => r.level === "high").length;
+                          const medium = analysisResult.risks.filter(r => r.level === "medium").length;
+                          const low = analysisResult.risks.filter(r => r.level === "low").length;
+                          const riskScore = (high * 22) + (medium * 9) + (low * 3.5);
+                          
+                          const textLen = rawTextInput ? rawTextInput.length : 4000;
+                          const textBonus = Math.max(0.6, Math.min(1.4, textLen / 4500));
+                          
+                          const finalScore = Math.max(10, Math.min(100, Math.round(100 - (riskScore / textBonus))));
+                          return finalScore;
+                        })();
+
+                        const radius = 36;
+                        const circumference = 2 * Math.PI * radius;
+                        const strokeDashoffset = circumference * (1 - score / 100);
+
+                        const strokeColor = 
+                          score > 80 ? "stroke-emerald-500" :
+                          score > 55 ? "stroke-amber-500" :
+                          "stroke-rose-500";
+                        
+                        const strokeBgColor =
+                          score > 80 ? "stroke-emerald-100 dark:stroke-emerald-950/40" :
+                          score > 55 ? "stroke-amber-100 dark:stroke-amber-950/40" :
+                          "stroke-rose-100 dark:stroke-rose-950/40";
+
+                        const textColor = 
+                          score > 80 ? "text-emerald-700 dark:text-emerald-400" :
+                          score > 55 ? "text-amber-700 dark:text-amber-400" :
+                          "text-rose-700 dark:text-rose-400";
+
+                        const badgeBgColor =
+                          score > 80 ? "bg-emerald-50/50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-850" :
+                          score > 55 ? "bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-850" :
+                          "bg-rose-50/50 dark:bg-rose-950/20 border-rose-200 dark:border-rose-850";
+
+                        return (
+                          <div className={`flex flex-col sm:flex-row items-center gap-6 p-5 rounded-2xl border transition-all ${badgeBgColor}`}>
+                            {/* Circular Gauge */}
+                            <div className="relative flex items-center justify-center shrink-0">
+                              <svg className="h-24 w-24 transform -rotate-90">
+                                <circle
+                                  cx="48"
+                                  cy="48"
+                                  r={radius}
+                                  className={`fill-transparent ${strokeBgColor}`}
+                                  strokeWidth="8"
+                                />
+                                <motion.circle
+                                  cx="48"
+                                  cy="48"
+                                  r={radius}
+                                  className={`fill-transparent ${strokeColor}`}
+                                  strokeWidth="8"
+                                  strokeDasharray={circumference}
+                                  initial={{ strokeDashoffset: circumference }}
+                                  animate={{ strokeDashoffset }}
+                                  transition={{ duration: 1.2, ease: "easeOut" }}
+                                  strokeLinecap="round"
+                                />
+                              </svg>
+                              <div className="absolute flex flex-col items-center justify-center">
+                                <span className={`text-2xl font-black tracking-tight ${textColor}`}>{score}</span>
+                                <span className="text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase">/ 100</span>
+                              </div>
+                            </div>
+
+                            {/* Score info and explanations */}
+                            <div className="space-y-1.5 text-center sm:text-left min-w-0 flex-1">
+                              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                                <h4 className="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider">
+                                  {lang === "fr" ? "Indice de Conformité Global" : "Global Compliance Index"}
+                                </h4>
+                                <span className={`inline-flex items-center rounded-md px-1.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider border ${
+                                  score > 80 ? "bg-emerald-100/50 dark:bg-emerald-950/30 text-emerald-800 dark:text-emerald-400 border-emerald-300 dark:border-emerald-800" :
+                                  score > 55 ? "bg-amber-100/50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-400 border-amber-300 dark:border-amber-800" :
+                                  "bg-rose-100/50 dark:bg-rose-950/30 text-rose-800 dark:text-rose-400 border-rose-300 dark:border-rose-800"
+                                }`}>
+                                  {score > 80 ? (lang === "fr" ? "Conforme" : "Compliant") :
+                                   score > 55 ? (lang === "fr" ? "Vigilance Modérée" : "Moderate Warning") :
+                                   (lang === "fr" ? "Risque Critique" : "Critical Risk")}
+                                </span>
+                              </div>
+                              <p className="text-xs text-slate-600 dark:text-slate-350 leading-relaxed font-medium">
+                                {lang === "fr"
+                                  ? `Ce score est basé sur la densité de risques détectés par rapport au volume total analysé (${rawTextInput ? Math.round(rawTextInput.length / 5) : 800} mots). Un score élevé indique un contrat protecteur et conforme.`
+                                  : `This score is calculated based on the density of detected risks in relation to the overall contract volume (${rawTextInput ? Math.round(rawTextInput.length / 5) : 800} words). A higher score indicates a protective, clean agreement.`}
+                              </p>
+                              <div className="text-[10px] text-slate-400 dark:text-slate-500 font-bold tracking-tight">
+                                {lang === "fr"
+                                  ? `Analyse : ${analysisResult.risks.length} risques identifiés • Contrat de ${rawTextInput ? rawTextInput.length : 4000} caractères`
+                                  : `Metrics: ${analysisResult.risks.length} flagged warnings • ${rawTextInput ? rawTextInput.length : 4000} characters document`}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })()}
+
                       <div>
-                        <h3 className="text-lg font-bold text-slate-900 mb-2">{t.summaryCardTitle}</h3>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{t.summaryCardTitle}</h3>
                         <div className="text-sm text-slate-600 leading-relaxed space-y-2">
                           <Markdown
                             components={{
