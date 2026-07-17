@@ -17,7 +17,8 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
   const isFr = lang === "fr";
 
   const [fullName, setFullName] = useState("");
-  const [source, setSource] = useState("");
+  const [sourceOption, setSourceOption] = useState("linkedin");
+  const [sourceCustom, setSourceCustom] = useState("");
   const [msgType, setMsgType] = useState<"conseil" | "innovation" | "apport">("conseil");
   const [message, setMessage] = useState("");
   const [channel, setChannel] = useState<"whatsapp" | "email">("whatsapp");
@@ -67,6 +68,15 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
         apport: isFr ? "Apport" : "Contribution / Feedback"
       }[msgType];
 
+      let finalSource = "";
+      if (sourceOption === "linkedin") finalSource = "LinkedIn";
+      else if (sourceOption === "social") finalSource = isFr ? "Réseaux sociaux" : "Social Media";
+      else if (sourceOption === "search") finalSource = isFr ? "Recherche Google / Web" : "Google / Web Search";
+      else if (sourceOption === "friend") finalSource = isFr ? "Bouche-à-oreille / Ami" : "Word of Mouth / Friend";
+      else if (sourceOption === "other") {
+        finalSource = sourceCustom.trim() || (isFr ? "Autre" : "Other");
+      }
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -74,7 +84,7 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
         },
         body: JSON.stringify({
           fullName: fullName.trim(),
-          source: source.trim() || (isFr ? "Non specifie" : "Not specified"),
+          source: finalSource,
           msgType: typeLabel,
           message: message.trim(),
           channel,
@@ -84,19 +94,26 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
         })
       });
 
+      let errorMessage = "";
       if (!response.ok) {
-        throw new Error("Server response error");
+        try {
+          const errData = await response.json();
+          errorMessage = errData.error || (isFr ? "Une erreur est survenue sur le serveur." : "A server error occurred.");
+        } catch (_) {
+          errorMessage = isFr ? "Impossible de contacter le serveur de messagerie." : "Failed to connect to the mail server.";
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
       if (data.success) {
         setIsSuccess(true);
       } else {
-        throw new Error(data.error || "Failed to send");
+        throw new Error(data.error || (isFr ? "Échec de l'envoi." : "Failed to send."));
       }
     } catch (err: any) {
       console.error(err);
-      setErrorMsg(isFr ? "Impossible d'envoyer le message. Veuillez reessayer." : "Failed to send the message. Please try again.");
+      setErrorMsg(err.message || (isFr ? "Impossible d'envoyer le message. Veuillez réessayer." : "Failed to send the message. Please try again."));
     } finally {
       setIsSubmitting(false);
     }
@@ -132,7 +149,6 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
 
   return (
     <div className="space-y-10 pb-16">
-      {/* Back button */}
       <div className="flex items-center">
         <button
           onClick={onClose}
@@ -143,7 +159,6 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
         </button>
       </div>
 
-      {/* Hero Section */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
           {isFr ? "Contactez-nous" : "Contact Us"}
@@ -155,18 +170,16 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
         </p>
       </div>
 
-      {/* Main form container */}
-      <div className="max-w-2xl mx-auto bg-white border border-slate-200/85 rounded-3xl p-6 sm:p-8 shadow-sm">
-        <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="max-w-lg mx-auto bg-white border border-slate-200/85 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <form onSubmit={handleSubmit} className="space-y-4">
           
           {errorMsg && (
-            <div className="flex items-start gap-3 p-4 bg-rose-50 text-rose-950 rounded-xl border border-rose-100 text-xs font-medium">
+            <div className="flex items-start gap-2.5 p-3.5 bg-rose-50 text-rose-950 rounded-xl border border-rose-100 text-xs font-medium">
               <AlertCircle className="h-4 w-4 text-rose-500 shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
           )}
 
-          {/* Full Name */}
           <div className="space-y-1.5">
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
               <User className="h-3.5 w-3.5 text-slate-400" />
@@ -178,26 +191,39 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               placeholder={isFr ? "Ex: Jean Dupont" : "e.g. John Doe"}
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-xs sm:text-sm font-medium placeholder-slate-400"
+              className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-xs sm:text-sm font-medium placeholder-slate-400"
             />
           </div>
 
-          {/* Source Info */}
           <div className="space-y-1.5">
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
               <Compass className="h-3.5 w-3.5 text-slate-400" />
               {isFr ? "Comment avez-vous connu l'application ?" : "How did you hear about the app?"}
             </label>
-            <input
-              type="text"
-              value={source}
-              onChange={(e) => setSource(e.target.value)}
-              placeholder={isFr ? "Ex: Reseaux sociaux, recherche Google, ami..." : "e.g. Social media, Google search, friend..."}
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-xs sm:text-sm font-medium placeholder-slate-400"
-            />
+            <select
+              value={sourceOption}
+              onChange={(e) => setSourceOption(e.target.value)}
+              className="w-full px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-xs sm:text-sm font-medium cursor-pointer"
+            >
+              <option value="linkedin">LinkedIn</option>
+              <option value="social">{isFr ? "Réseaux sociaux (Twitter, Facebook...)" : "Social Media (Twitter, Facebook...)"}</option>
+              <option value="search">{isFr ? "Recherche Google / Web" : "Google / Web Search"}</option>
+              <option value="friend">{isFr ? "Bouche-à-oreille / Ami ou Collègue" : "Word of Mouth / Friend or Colleague"}</option>
+              <option value="other">{isFr ? "Autre (Préciser...)" : "Other (Specify...)"}</option>
+            </select>
+
+            {sourceOption === "other" && (
+              <input
+                type="text"
+                required
+                value={sourceCustom}
+                onChange={(e) => setSourceCustom(e.target.value)}
+                placeholder={isFr ? "Veuillez préciser..." : "Please specify..."}
+                className="w-full mt-2 px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-xs sm:text-sm font-medium placeholder-slate-400"
+              />
+            )}
           </div>
 
-          {/* Message Type */}
           <div className="space-y-1.5">
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
               <HelpCircle className="h-3.5 w-3.5 text-slate-400" />
@@ -228,7 +254,6 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
             </div>
           </div>
 
-          {/* Message Content */}
           <div className="space-y-1.5">
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
               {isFr ? "Votre Message" : "Your Message"} <span className="text-rose-500">*</span>
@@ -243,13 +268,11 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
             />
           </div>
 
-          {/* Transmission Channel Selection */}
           <div className="space-y-2 pt-1">
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
               {isFr ? "Canal d'envoi" : "Sending Channel"}
             </label>
             <div className="grid grid-cols-2 gap-3">
-              {/* WhatsApp Option */}
               <button
                 type="button"
                 onClick={() => setChannel("whatsapp")}
@@ -274,7 +297,6 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
                 </div>
               </button>
 
-              {/* Email Option */}
               <button
                 type="button"
                 onClick={() => setChannel("email")}
@@ -301,7 +323,6 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
             </div>
           </div>
 
-          {/* Conditional Input based on Selected Channel */}
           {channel === "whatsapp" ? (
             <div className="space-y-1.5 p-3.5 bg-slate-50/70 rounded-xl border border-slate-100">
               <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600">
@@ -345,7 +366,6 @@ export default function ContactView({ lang, onClose }: ContactViewProps) {
             </div>
           )}
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={isSubmitting}

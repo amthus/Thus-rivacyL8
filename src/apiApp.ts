@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import { GoogleGenAI, Type } from "@google/genai";
+import { contactHandler } from "../api/contact";
 
 dotenv.config();
 
@@ -192,61 +193,6 @@ app.post("/api/translate", async (req, res) => {
   }
 });
 
-app.post("/api/contact", async (req, res) => {
-  try {
-    const { fullName, source, msgType, message, channel, countryCode, phoneNum, emailAddr } = req.body;
-
-    if (!fullName || !message || !channel) {
-      return res.status(400).json({ error: "Missing required fields" });
-    }
-
-    const whatsappPhone = process.env.CONTACT_WHATSAPP_PHONE || "22946879142";
-    const contactEmail = process.env.CONTACT_EMAIL || "ametepemalthus16@gmail.com";
-
-    let templateContent = "";
-    let formattedMessage = "";
-
-    if (channel === "whatsapp") {
-      const templatePath = path.join(process.cwd(), "src/templates/whatsappTemplate.txt");
-      templateContent = fs.readFileSync(templatePath, "utf8");
-      
-      formattedMessage = templateContent
-        .replace("{fullName}", fullName || "")
-        .replace("{source}", source || "Non specifie")
-        .replace("{msgType}", msgType || "")
-        .replace("{message}", message || "")
-        .replace("{countryCode}", countryCode || "")
-        .replace("{phoneNum}", phoneNum || "");
-
-      console.log("-----------------------------------------");
-      console.log(`[SECURE BACKGROUND DISPATCH] Sending WhatsApp Message to ${whatsappPhone}`);
-      console.log(`Payload Body:\n${formattedMessage}`);
-      console.log("-----------------------------------------");
-      
-    } else if (channel === "email") {
-      const templatePath = path.join(process.cwd(), "src/templates/emailTemplate.txt");
-      templateContent = fs.readFileSync(templatePath, "utf8");
-
-      formattedMessage = templateContent
-        .replace("{fullName}", fullName || "")
-        .replace("{source}", source || "Non specifie")
-        .replace("{msgType}", msgType || "")
-        .replace("{message}", message || "")
-        .replace("{emailAddr}", emailAddr || "");
-
-      console.log("-----------------------------------------");
-      console.log(`[SECURE BACKGROUND DISPATCH] Sending Email to ${contactEmail}`);
-      console.log(`Payload Body:\n${formattedMessage}`);
-      console.log("-----------------------------------------");
-    } else {
-      return res.status(400).json({ error: "Invalid channel" });
-    }
-
-    return res.json({ success: true });
-  } catch (error: any) {
-    console.error("Error in contact endpoint:", error);
-    return res.status(500).json({ error: "Une erreur est survenue lors de l'envoi." });
-  }
-});
+app.post("/api/contact", contactHandler);
 
 export default app;
